@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 @org.springframework.stereotype.Controller
 public class Controller {
     @Autowired BookRepo bookRepo;
+    @Autowired AuthorInfoRepo authorInfoRepo;
 
     @GetMapping("/allBooks")
     public String AllBooks(Model model) {

@@ -1,11 +1,15 @@
 package codelook.jpa;
 
-import codelook.jpa.objects.Book;
+import codelook.jpa.objects.AuthorInfo;
+import codelook.jpa.objects.AuthorInfoRepo;
+import codelook.jpa.objects.BookInfo;
 import codelook.jpa.objects.BookRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class JpaApplication {
@@ -14,16 +18,19 @@ public class JpaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(BookRepo bookRepo) {
+    public CommandLineRunner demo(BookRepo bookRepo, AuthorInfoRepo authorInfoRepo) {
         return (args) -> {
+            AuthorInfo authorInfo = new AuthorInfo("George", "just a simple author");
             // saving a few books
-            Book book1 = new Book("1984", "George", "111-111-111", "Corruption", "People", 222, 10);
-            Book book2 = new Book("MiceMen", "Peter", "222-222-222", "Sad", "Mice", 333, 100);
-            Book book3 = new Book("Twilight", "Bob", "333-333-333", "Love", "PeopleParty", 444, 5);
+            BookInfo bookInfo1 = new BookInfo("1984", List.of(authorInfo), "111-111-111", "Corruption", "People", 222, "Dystopian");
+            BookInfo bookInfo2 = new BookInfo("MiceMen", List.of(authorInfo), "222-222-222", "Sad", "Mice", 333, "Coming of Age");
+            BookInfo bookInfo3 = new BookInfo("Twilight", List.of(authorInfo), "333-333-333", "Love", "PeopleParty", 444, "Vampires");
 
-            bookRepo.save(book1);
-            bookRepo.save(book2);
-            bookRepo.save(book3);
+            authorInfoRepo.save(authorInfo);
+
+            bookRepo.save(bookInfo1);
+            bookRepo.save(bookInfo2);
+            bookRepo.save(bookInfo3);
 
 
         };

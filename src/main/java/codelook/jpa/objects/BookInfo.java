@@ -4,35 +4,37 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 import jakarta.persistence.*;
-import java.awt.image.BufferedImage;
+
+import java.util.List;
 
 @Entity
-public class Book {
+public class BookInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String title;
-    private String author;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private List<AuthorInfo> authorship;
     private String ISBN;
     private String description;
     private String publisher;
-    private int pages;
-    private int inventory;
+    private int pageCount;
+    private String genre;
     //private BufferedImage picture;
 
-    public Book(String title, String author, String ISBN, String description, String publisher, int pages, int inventory) {
+    public BookInfo(String title, List<AuthorInfo> authorship, String ISBN, String description, String publisher, int pageCount, String genre) {
         this.title = title;
-        this.author = author;
+        this.authorship = authorship;
         this.ISBN = ISBN;
         this.description = description;
         this.publisher = publisher;
-        this.pages = pages;
-        this.inventory = inventory;
+        this.pageCount = pageCount;
+        this.genre = genre;
     }
 
-    public Book() {
+    public BookInfo() {
 
     }
 
@@ -44,12 +46,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<AuthorInfo> getAuthorship() {
+        return authorship;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorship(List<AuthorInfo> authors) {
+        this.authorship = authors;
     }
 
     public String getISBN() {
@@ -76,20 +78,20 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public int getPages() {
-        return pages;
+    public int getPageCount() {
+        return pageCount;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public void setPageCount(int pages) {
+        this.pageCount = pages;
     }
 
-    public int getInventory() {
-        return inventory;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setInventory(int inventory) {
-        this.inventory = inventory;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
 //    public BufferedImage getPicture() {
