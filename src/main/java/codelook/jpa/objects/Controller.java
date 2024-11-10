@@ -6,12 +6,16 @@ import org.springframework.ui.Model;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-    @Autowired BookRepo bookRepo;
-    @Autowired AuthorInfoRepo authorInfoRepo;
+    @Autowired
+    ListingInfoRepo listingInfoRepo;
+    @Autowired
+    BookInfoRepo bookInfoRepo;
+    @Autowired
+    AuthorInfoRepo authorInfoRepo;
 
     @GetMapping("/allBooks")
     public String AllBooks(Model model) {
-        model.addAttribute("books", bookRepo.findAll());
+        model.addAttribute("books", bookInfoRepo.findAll());
         return "allBooks";
     }
 }

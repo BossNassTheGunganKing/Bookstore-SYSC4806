@@ -14,20 +14,18 @@ public class BookInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String title;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private String name;
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<AuthorInfo> authorship;
-    private String ISBN;
     private String description;
     private String publisher;
     private int pageCount;
     private String genre;
     //private BufferedImage picture;
 
-    public BookInfo(String title, List<AuthorInfo> authorship, String ISBN, String description, String publisher, int pageCount, String genre) {
-        this.title = title;
+    public BookInfo(String name, List<AuthorInfo> authorship, String description, String publisher, int pageCount, String genre) {
+        this.name = name;
         this.authorship = authorship;
-        this.ISBN = ISBN;
         this.description = description;
         this.publisher = publisher;
         this.pageCount = pageCount;
@@ -38,12 +36,12 @@ public class BookInfo {
 
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String title) {
+        this.name = title;
     }
 
     public List<AuthorInfo> getAuthorship() {
@@ -52,14 +50,6 @@ public class BookInfo {
 
     public void setAuthorship(List<AuthorInfo> authors) {
         this.authorship = authors;
-    }
-
-    public String getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
     }
 
     public String getDescription() {
