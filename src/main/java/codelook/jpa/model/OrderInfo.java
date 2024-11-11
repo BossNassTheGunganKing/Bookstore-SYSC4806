@@ -4,6 +4,8 @@ package codelook.jpa.model;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+@Entity
 public class OrderInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,9 +1,7 @@
 package codelook.jpa;
 
 import codelook.jpa.model.*;
-import codelook.jpa.repository.AuthorInfoRepo;
-import codelook.jpa.repository.BookInfoRepo;
-import codelook.jpa.repository.ListingInfoRepo;
+import codelook.jpa.repository.*;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,9 +16,15 @@ public class JpaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo) {
+    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo, UserInfoRepo userInfoRepo, OrderInfoRepo orderInfoRepo, OrderItemRepo orderItemRepo) {
         return (args) -> {
-            AuthorInfo authorInfo = StaticData.authorInfo1;
+            AuthorInfo authorInfo1 = StaticData.authorInfo1;
+            AuthorInfo authorInfo2 = StaticData.authorInfo2;
+
+
+            UserInfo publisher1 = StaticData.somePublisher;
+            UserInfo publisher2 = StaticData.anotherPublisher;
+
             // saving a few books
             BookInfo bookInfo1 = StaticData.bookInfo1;
             BookInfo bookInfo2 = StaticData.bookInfo2;
@@ -30,8 +34,11 @@ public class JpaApplication {
             ListingInfo listingInfo2 = StaticData.listing2;
             ListingInfo listingInfo3 = StaticData.listing3;
 
+            authorInfoRepo.save(authorInfo1);
+            authorInfoRepo.save(authorInfo2);
 
-            authorInfoRepo.save(authorInfo);
+            userInfoRepo.save(publisher1);
+            userInfoRepo.save(publisher2);
 
             bookInfoRepo.save(bookInfo1);
             bookInfoRepo.save(bookInfo2);
@@ -40,6 +47,7 @@ public class JpaApplication {
             listingInfoRepo.save(listingInfo1);
             listingInfoRepo.save(listingInfo2);
             listingInfoRepo.save(listingInfo3);
+
 
         };
     }
