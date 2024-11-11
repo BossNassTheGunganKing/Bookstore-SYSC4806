@@ -1,14 +1,15 @@
 package codelook.jpa;
 
-import codelook.jpa.objects.*;
+import codelook.jpa.model.AuthorInfo;
+import codelook.jpa.model.BookInfo;
+import codelook.jpa.model.ListingInfo;
+import codelook.jpa.model.UserInfo;
+
+import codelook.jpa.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
 public class JpaApplication {
@@ -17,23 +18,34 @@ public class JpaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo) {
+    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo, UserInfoRepo userInfoRepo, OrderInfoRepo orderInfoRepo, OrderItemRepo orderItemRepo) {
         return (args) -> {
-            AuthorInfo authorInfo = new AuthorInfo("George", "just a simple author");
+            AuthorInfo authorInfo1 = StaticData.authorInfo1;
+            AuthorInfo authorInfo2 = StaticData.authorInfo2;
+
+
+            UserInfo publisher1 = StaticData.somePublisher;
+            UserInfo publisher2 = StaticData.anotherPublisher;
+
             // saving a few books
-            BookInfo bookInfo1 = new BookInfo("1984", List.of(authorInfo), "Corruption", "People", 222, "Dystopian");
-            BookInfo bookInfo2 = new BookInfo("MiceMen", List.of(authorInfo), "Sad", "Mice", 333, "Coming of Age");
-            BookInfo bookInfo3 = new BookInfo("Twilight", List.of(authorInfo), "Love", "PeopleParty", 444, "Vampires");
+            BookInfo bookInfo1 = StaticData.bookInfo1;
+            BookInfo bookInfo2 = StaticData.bookInfo2;
+            BookInfo bookInfo3 = StaticData.bookInfo3;
 
-            ListingInfo listingInfo1 = new ListingInfo("1984", "111-111-111" ,"Corruption", new Date(1949,6,8), ListingInfo.Format.Hardcover, new BigDecimal(19.99), bookInfo1, 10);
-            ListingInfo listingInfo2 = new ListingInfo("MiceMen", "222-222-222", "Sad", new Date(1989,7,7), ListingInfo.Format.Ebook, new BigDecimal(20.99), bookInfo2,20);
-            ListingInfo listingInfo3 = new ListingInfo("Twilight", "333-333-333" ,  "Love", new Date(2000,10,10), ListingInfo.Format.Paperback, new BigDecimal(9.99), bookInfo3,30);
+            ListingInfo listingInfo1 = StaticData.listing1;
+            ListingInfo listingInfo2 = StaticData.listing2;
+            ListingInfo listingInfo3 = StaticData.listing3;
 
+            authorInfoRepo.save(authorInfo1);
+            authorInfoRepo.save(authorInfo2);
 
-            authorInfoRepo.save(authorInfo);
+            userInfoRepo.save(publisher1);
+            userInfoRepo.save(publisher2);
+
             bookInfoRepo.save(bookInfo1);
             bookInfoRepo.save(bookInfo2);
             bookInfoRepo.save(bookInfo3);
+
             listingInfoRepo.save(listingInfo1);
             listingInfoRepo.save(listingInfo2);
             listingInfoRepo.save(listingInfo3);

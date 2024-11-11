@@ -1,4 +1,4 @@
-package codelook.jpa.objects;
+package codelook.jpa.model;
 
 import jakarta.persistence.*;
 
@@ -19,6 +19,7 @@ public class ListingInfo {
     private BigDecimal originalPrice;
     private BigDecimal discountedPrice;
     private int remainingCopies;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     private BookInfo book;
 
@@ -37,7 +38,6 @@ public class ListingInfo {
     }
 
     public ListingInfo() {
-
     }
 
     public String getISBN() {
