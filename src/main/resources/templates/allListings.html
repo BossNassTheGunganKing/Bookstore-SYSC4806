@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>New Listing</title>
+    </head>
+    <body>
+        <h1>Current Listings</h1>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Book ISBN</th>
+                <th scope="col">Book Title</th>
+                <th scope="col">Publisher</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="listing : ${listings}">
+                <td th:text="${listing.getISBN()}"></td>
+                <td>
+                    <a th:href="@{/listing/{id}(id=${listing.getId()})}" th:text="${listing.getName()}"></a>
+                </td>
+                <td th:text="${listing.getBook().getPublisher()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

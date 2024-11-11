@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ListingInfoRepo extends JpaRepository<ListingInfo, Integer> {
+    ListingInfo findById(Long id);
+
 }
