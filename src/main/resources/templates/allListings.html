@@ -19,7 +19,7 @@
                 <td>
                     <a th:href="@{/listing/{id}(id=${listing.getId()})}" th:text="${listing.getName()}"></a>
                 </td>
-                <td th:text="${listing.getBook().getPublisher()}"></td>
+                <td th:text="${listing.getBook().getPublisher().getUsername()}"></td>
             </tr>
             </tbody>
         </table>
