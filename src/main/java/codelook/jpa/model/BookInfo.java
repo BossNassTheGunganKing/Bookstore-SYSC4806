@@ -13,7 +13,6 @@ public class BookInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String name;
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<AuthorInfo> authorship;

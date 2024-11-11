@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Book</title>
+</head>
+<body>
+<h1>Add New Book</h1>
+
+<form action="/books" method="post">
+    <label for="name">Title:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea>
+
+    <label for="publisher">Publisher:</label>
+    <input type="text" id="publisher" name="publisher">
+
+    <label for="pageCount">Page Count:</label>
+    <input type="number" id="pageCount" name="pageCount">
+
+    <label for="genre">Genre:</label>
+    <input type="text" id="genre" name="genre">
+
+    <label for="authorSelect">Select Authors:</label>
+    <select id="authorSelect" name="authorIds" multiple required> <!-- "multiple" allows multi-select -->
+        <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}"></option>
+    </select>
+
+    <button type="submit">Add Book</button>
+</form>
+</body>
+</html>
