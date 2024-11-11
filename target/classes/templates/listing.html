@@ -24,6 +24,10 @@
       <td th:text="${Listing.ISBN}"></td>
     </tr>
     <tr>
+      <td>Author</td>
+      <td th:text="${Listing.book.authorship[0].name}"></td>
+    </tr>
+    <tr>
       <td>Date Published</td>
       <td th:text="${Listing.datePublished}"></td>
     </tr>
