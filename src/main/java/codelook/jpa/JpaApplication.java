@@ -4,18 +4,12 @@ import codelook.jpa.model.AuthorInfo;
 import codelook.jpa.model.BookInfo;
 import codelook.jpa.model.ListingInfo;
 import codelook.jpa.model.UserInfo;
-import codelook.jpa.objects.*;
 
-import codelook.jpa.objects.BookInfoRepo;
 import codelook.jpa.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
 public class JpaApplication {
@@ -48,13 +42,13 @@ public class JpaApplication {
             userInfoRepo.save(publisher1);
             userInfoRepo.save(publisher2);
 
-//            bookInfoRepo.save(bookInfo1);
-//            bookInfoRepo.save(bookInfo2);
-//            bookInfoRepo.save(bookInfo3);
-//
-//            listingInfoRepo.save(listingInfo1);
-//            listingInfoRepo.save(listingInfo2);
-//            listingInfoRepo.save(listingInfo3);
+            bookInfoRepo.save(bookInfo1);
+            bookInfoRepo.save(bookInfo2);
+            bookInfoRepo.save(bookInfo3);
+
+            listingInfoRepo.save(listingInfo1);
+            listingInfoRepo.save(listingInfo2);
+            listingInfoRepo.save(listingInfo3);
 
 
         };
