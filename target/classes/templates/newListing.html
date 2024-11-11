@@ -19,7 +19,7 @@
 <!--    <button type="submit">Submit</button>-->
 <!--</form>-->
 
-<form action="/newListings" method="post">
+<form action="/newListing" method="post">
     <div>
         <label for="name">Listing Name:</label>
         <input type="text" id="name" name="name" required>
@@ -53,11 +53,12 @@
     </div>
     <div>
     <label>Select Book:</label>
-    <select id="bookSelect" name="bookId" required>
+        <label for="bookSelect"></label>
+        <select id="bookSelect" name="bookId" required>
         <option value="">-- Select a Book --</option>
         <option th:each="book : ${books}"
-                th:value="${book.getId()}"
-                th:text="${book.getName()}"></option>
+                th:value="${book.id}"
+                th:text="${book.name}"></option>
     </select>
     </div>
     <div>
