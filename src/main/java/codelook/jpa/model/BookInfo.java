@@ -40,9 +40,6 @@ public class BookInfo {
         return id;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
