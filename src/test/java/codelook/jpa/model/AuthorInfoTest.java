@@ -1,11 +1,8 @@
-package codelook.jpa;
+package codelook.jpa.model;
 
-import codelook.jpa.objects.AuthorInfo;
-import codelook.jpa.objects.BookInfo;
+import codelook.jpa.StaticData;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,8 +10,8 @@ public class AuthorInfoTest {
     private AuthorInfo authorInfo1, authorInfo2;
     @Before
     public void setUp() throws Exception {
-         authorInfo1 = new AuthorInfo("George", "just a simple author");
-         authorInfo2 = new AuthorInfo("Geoff", "just a simpleton");
+         authorInfo1 = StaticData.authorInfo1;
+         authorInfo2 = StaticData.authorInfo2;
     }
 
     @Test

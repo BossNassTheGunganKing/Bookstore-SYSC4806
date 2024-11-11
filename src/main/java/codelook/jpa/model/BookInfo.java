@@ -1,4 +1,4 @@
-package codelook.jpa.objects;
+package codelook.jpa.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,12 +18,14 @@ public class BookInfo {
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<AuthorInfo> authorship;
     private String description;
-    private String publisher;
+
+    @ManyToOne
+    private UserInfo publisher;
     private int pageCount;
     private String genre;
     //private BufferedImage picture;
 
-    public BookInfo(String name, List<AuthorInfo> authorship, String description, String publisher, int pageCount, String genre) {
+    public BookInfo(String name, List<AuthorInfo> authorship, String description, UserInfo publisher, int pageCount, String genre) {
         this.name = name;
         this.authorship = authorship;
         this.description = description;
@@ -33,7 +35,6 @@ public class BookInfo {
     }
 
     public BookInfo() {
-
     }
 
     public String getName() {
@@ -60,11 +61,11 @@ public class BookInfo {
         this.description = description;
     }
 
-    public String getPublisher() {
+    public UserInfo getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(UserInfo publisher) {
         this.publisher = publisher;
     }
 
