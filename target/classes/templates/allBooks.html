@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Books</title>
+</head>
+<body>
+<h1>All Books Table</h1>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Book Title</th>
+        <th scope="col">Author(s)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.authorship[0].name}"></td>
+    </tr>
+    </tbody>
+</table>
+<!-- Return to Home Button -->
+<div style="margin-top: 20px;">
+    <a href="/" class="btn btn-secondary">Return to Home</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/JpaApplication.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/StaticData.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/model/AuthorInfo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/model/BookInfo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/model/ListingInfo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/model/OrderInfo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/model/OrderItem.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/model/OrderStatus.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/model/UserInfo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/model/UserRole.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/repository/AuthorInfoRepo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/repository/BookInfoRepo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/repository/ListingInfoRepo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/repository/OrderInfoRepo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/repository/OrderItemRepo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/repository/UserInfoRepo.java
+/Users/michaelrochefort/IdeaProjects/SYSC4806/Bookstore-SYSC4806/src/main/java/codelook/jpa/view/MainViewController.java

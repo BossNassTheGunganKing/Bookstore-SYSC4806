@@ -13,7 +13,6 @@ public class BookInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String name;
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<AuthorInfo> authorship;
@@ -36,6 +35,11 @@ public class BookInfo {
 
     public BookInfo() {
     }
+
+    public Integer getId() {
+        return id;
+    }
+
 
     public String getName() {
         return name;

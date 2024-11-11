@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bookstore Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Welcome to the Bookstore</h1>
+
+    <!-- Links to other actions -->
+    <div class="list-group">
+        <a href="/authors" class="list-group-item list-group-item-action">
+            Add New Author
+        </a>
+        <a href="/newListing" class="list-group-item list-group-item-action">
+            Create New Listing
+        </a>
+        <a href="/newBook" class="list-group-item list-group-item-action">
+            Add New Book
+        </a>
+    </div>
+
+    <!-- Other content or links for the homepage -->
+    <h2 class="my-4">Browse Books</h2>
+    <a href="/allBooks" class="btn btn-primary">View All Books</a>
+
+    <h2 class="my-4">View Listings</h2>
+    <a href="/allListings" class="btn btn-primary">View All Listings</a>
+
+</div>
+</body>
+</html>

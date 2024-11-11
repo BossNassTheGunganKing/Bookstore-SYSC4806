@@ -1,13 +1,15 @@
 package codelook.jpa;
 
-import codelook.jpa.model.*;
-import codelook.jpa.repository.*;
+import codelook.jpa.model.AuthorInfo;
+import codelook.jpa.model.BookInfo;
+import codelook.jpa.model.ListingInfo;
+import codelook.jpa.model.UserInfo;
 
+import codelook.jpa.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 
 @SpringBootApplication
 public class JpaApplication {
