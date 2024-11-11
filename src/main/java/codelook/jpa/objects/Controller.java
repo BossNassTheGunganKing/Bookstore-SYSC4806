@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
@@ -47,6 +49,18 @@ public class Controller {
     public String newListingPage(Model model) {
         model.addAttribute("books", bookInfoRepo.findAll());
         return "newListing";
+    }
+
+    @PostMapping
+    public String addListing(@RequestParam String name,
+                             @RequestParam String description,
+                             @RequestParam Date DatePublished,
+                             @RequestParam Format format,
+                             @RequestParam BigDecimal DiscountedPrice
+
+                             ) {
+        listingInfoRepo.save(listingInfo);
+        return "redirect:/allBooks";
     }
 
     // New Book Page
