@@ -1,0 +1,10 @@
+codelook/jpa/objects/ListingInfo$Format.class
+codelook/jpa/JpaApplication.class
+codelook/jpa/objects/ShoppingCart.class
+codelook/jpa/objects/BookInfo.class
+codelook/jpa/objects/AuthorInfo.class
+codelook/jpa/objects/Controller.class
+codelook/jpa/objects/ListingInfo.class
+codelook/jpa/objects/AuthorInfoRepo.class
+codelook/jpa/objects/ListingInfoRepo.class
+codelook/jpa/objects/BookInfoRepo.class
