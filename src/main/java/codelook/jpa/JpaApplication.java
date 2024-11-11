@@ -31,11 +31,9 @@ public class JpaApplication {
 
 
             authorInfoRepo.save(authorInfo);
-
             bookInfoRepo.save(bookInfo1);
             bookInfoRepo.save(bookInfo2);
             bookInfoRepo.save(bookInfo3);
-
             listingInfoRepo.save(listingInfo1);
             listingInfoRepo.save(listingInfo2);
             listingInfoRepo.save(listingInfo3);
