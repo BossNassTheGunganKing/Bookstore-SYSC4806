@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Listing</title>
+</head>
+<body>
+<h1>Create New Listing</h1>
+
+<form action="/listings" method="post">
+    <label for="bookSelect">Select Book:</label>
+    <select id="bookSelect" name="bookId" required>
+        <option value="">-- Select a Book --</option>
+        <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}"></option>
+    </select>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" required>
+
+    <button type="submit">Create Listing</button>
+</form>
+</body>
+</html>
