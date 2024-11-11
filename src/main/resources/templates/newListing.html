@@ -6,18 +6,64 @@
 <body>
 <h1>Create New Listing</h1>
 
-<form action="/newListings" method="post">
-<!--    <label for="bookSelect">Select Book:</label>-->
+<!--<form action="/newListings" method="post">-->
+<!--    <label>Select Book:</label>-->
 <!--    <select id="bookSelect" name="bookId" required>-->
 <!--        <option value="">&#45;&#45; Select a Book &#45;&#45;</option>-->
-<!--        <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}"></option>-->
+<!--        &lt;!&ndash; Thymeleaf loop to populate options with books &ndash;&gt;-->
+<!--        <option th:each="book : ${books}"-->
+<!--                th:value="${book.id}"-->
+<!--                th:text="${book.title}"></option>-->
 <!--    </select>-->
 
+<!--    <button type="submit">Submit</button>-->
+<!--</form>-->
+
+<form action="/newListings" method="post">
+    <div>
+        <label for="name">Listing Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+    <label for="ISBN">ISBN:</label>
+    <input type="text" id="ISBN" name="ISBN" required>
+    </div>
+    <div>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+    </div>
+    <div>
+        <label for="DatePublished">Date Published:</label>
+        <input type="date" id="DatePublished" name="DatePublished" required>
+    </div>
+    <div>
+        <label for="format">Format:</label>
+        <select id="format" name="format" required>
+            <option value="">-- Select Format --</option>
+            <option value="HARDCOVER">Hardcover</option>
+            <option value="PAPERBACK">Paperback</option>
+            <option value="EBOOK">eBook</option>
+        </select>
+    </div>
+    <label for="OriginalPrice">Original Price:</label>
+    <input type="number" id="OriginalPrice" name="OriginalPrice" step="0.01" required>
+    <div>
     <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" name="quantity" required>
-
-    <button type="submit" class="btn btn-primary" href="/allBooks">Create Listing</button>
-
+    <input type="number" id="quantity" name="CopiesRemaining" required>
+    </div>
+    <div>
+    <label>Select Book:</label>
+    <select id="bookSelect" name="bookId" required>
+        <option value="">-- Select a Book --</option>
+        <option th:each="book : ${books}"
+                th:value="${book.getId()}"
+                th:text="${book.getName()}"></option>
+    </select>
+    </div>
+    <div>
+    <button type="submit" class="btn btn-primary">Create Listing</button>
+    </div>
 </form>
+
 </body>
 </html>

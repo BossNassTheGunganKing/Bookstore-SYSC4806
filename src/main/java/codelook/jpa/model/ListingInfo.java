@@ -23,7 +23,10 @@ public class ListingInfo {
     @ManyToOne(cascade = CascadeType.MERGE)
     private BookInfo book;
 
-    public ListingInfo(String name, String ISBN,String description, Date datePublished, Format format, BigDecimal originalPrice, BookInfo book, int remainingCopies) {
+    public ListingInfo(String name, String ISBN,String description,
+                       Date datePublished, Format format,
+                       BigDecimal originalPrice,
+                       BookInfo book, int remainingCopies) {
         this.name = name;
         this.ISBN = ISBN;
         this.description = description;
