@@ -1,4 +1,4 @@
-package codelook.jpa.objects;
+package codelook.jpa.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

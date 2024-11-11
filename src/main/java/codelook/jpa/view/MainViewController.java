@@ -1,11 +1,15 @@
-package codelook.jpa.objects;
+package codelook.jpa.view;
 
+import codelook.jpa.repository.AuthorInfoRepo;
+import codelook.jpa.repository.BookInfoRepo;
+import codelook.jpa.repository.ListingInfoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 
-@org.springframework.stereotype.Controller
-public class Controller {
+@Controller
+public class MainViewController {
     @Autowired
     ListingInfoRepo listingInfoRepo;
     @Autowired

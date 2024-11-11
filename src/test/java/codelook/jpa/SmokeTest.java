@@ -2,7 +2,7 @@ package codelook.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import codelook.jpa.objects.Controller;
+import codelook.jpa.view.MainViewController;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class SmokeTest {
 
     @Autowired
-    private Controller controller;
+    private MainViewController mainViewController;
 
     @Test
     void contextLoads() throws Exception {
-        assertThat(controller).isNotNull();
+        assertThat(mainViewController).isNotNull();
     }
 }
