@@ -51,14 +51,16 @@ public class Controller {
         return "newListing";
     }
 
-    @PostMapping
+    @PostMapping("/newListing")
     public String addListing(@RequestParam String name,
+                             @RequestParam String ISBN,
                              @RequestParam String description,
                              @RequestParam Date DatePublished,
-                             @RequestParam Format format,
-                             @RequestParam BigDecimal DiscountedPrice
-
-                             ) {
+                             @RequestParam ListingInfo.Format format,
+                             @RequestParam BigDecimal OriginalPrice,
+                             @RequestParam BookInfo book,
+                             @RequestParam int CopiesRemaining) {
+        ListingInfo listingInfo = new ListingInfo(name, ISBN, description, DatePublished, format, OriginalPrice, book, CopiesRemaining);
         listingInfoRepo.save(listingInfo);
         return "redirect:/allBooks";
     }
