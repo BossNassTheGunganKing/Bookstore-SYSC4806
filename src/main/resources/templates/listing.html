@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <title th:text="${Listing.getName()}"></title>
+</head>
+  <body>
+  <h1 th:text="${Listing.name}">Book Listing</h1>
+
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Attribute</th>
+      <th scope="col">Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Title</td>
+      <td th:text="${Listing.name}"></td>
+    </tr>
+    <tr>
+      <td>ISBN</td>
+      <td th:text="${Listing.ISBN}"></td>
+    </tr>
+    <tr>
+      <td>Date Published</td>
+      <td th:text="${Listing.datePublished}"></td>
+    </tr>
+    <tr>
+      <td>Format</td>
+      <td th:text="${Listing.format}"></td>
+    </tr>
+    <tr>
+      <td>Original Price</td>
+      <td th:text="${Listing.originalPrice}"></td>
+    </tr>
+    <tr>
+      <td>Remaining Copies</td>
+      <td th:text="${Listing.remainingCopies}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>Description</h2>
+  <p th:text="${Listing.description}"></p>
+  </body>
+</html>

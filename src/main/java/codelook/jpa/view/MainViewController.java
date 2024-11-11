@@ -1,9 +1,11 @@
-package codelook.jpa.view;
+package codelook.jpa.objects;
 
 import codelook.jpa.repository.AuthorInfoRepo;
 import codelook.jpa.repository.BookInfoRepo;
 import codelook.jpa.repository.ListingInfoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -15,8 +17,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-@Controller
-public class MainViewController {
+@org.springframework.stereotype.Controller
+public class Controller {
     @Autowired
     ListingInfoRepo listingInfoRepo;
     @Autowired
@@ -59,14 +61,49 @@ public class MainViewController {
     public String addListing(@RequestParam String name,
                              @RequestParam String ISBN,
                              @RequestParam String description,
-                             @RequestParam Date DatePublished,
-                             @RequestParam ListingInfo.Format format,
+                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date DatePublished,
+                             @RequestParam String format,
                              @RequestParam BigDecimal OriginalPrice,
-                             @RequestParam BookInfo book,
+                             @RequestParam Integer bookId,  // Use Long for bookId
                              @RequestParam int CopiesRemaining) {
-        ListingInfo listingInfo = new ListingInfo(name, ISBN, description, DatePublished, format, OriginalPrice, book, CopiesRemaining);
+
+        // Convert the format string to enum
+        ListingInfo.Format form;
+        switch (format) {
+            case "HARDCOVER":
+                form = ListingInfo.Format.Hardcover;
+                break;
+            case "PAPERBACK":
+                form = ListingInfo.Format.Paperback;
+                break;
+            default:
+                form = ListingInfo.Format.Ebook;
+                break;
+        }
+
+        // Fetch the BookInfo entity by ID
+        BookInfo book = bookInfoRepo.findById(bookId).orElse(null);
+        if (book == null) {
+            // Handle case where the book is not found, e.g., return an error or redirect
+            return "redirect:/errorPage";
+        }
+
+        // Create and save the new ListingInfo
+        ListingInfo listingInfo = new ListingInfo(name, ISBN, description, DatePublished, form, OriginalPrice, book, CopiesRemaining);
         listingInfoRepo.save(listingInfo);
-        return "redirect:/allBooks";
+        return "redirect:/allListings";
+    }
+
+    @GetMapping("/allListings")
+    public String allListings(Model model) {
+        model.addAttribute("listings", listingInfoRepo.findAll());
+        return "allListings";
+    }
+
+    @GetMapping("/listing/{id}")
+    public String listingPage(@PathVariable Long id, Model model) {
+        model.addAttribute("Listing", listingInfoRepo.findById(id));
+        return "listing";
     }
 
     // New Book Page

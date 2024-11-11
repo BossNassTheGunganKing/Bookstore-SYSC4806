@@ -1,9 +1,10 @@
-package codelook.jpa.repository;
+package codelook.jpa.objects;
 
-import codelook.jpa.model.ListingInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ListingInfoRepo extends JpaRepository<ListingInfo, Long> {
+public interface ListingInfoRepo extends JpaRepository<ListingInfo, Integer> {
+    ListingInfo findById(Long id);
+
 }
