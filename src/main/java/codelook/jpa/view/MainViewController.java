@@ -1,14 +1,17 @@
 package codelook.jpa.view;
 
+import codelook.jpa.StaticData;
 import codelook.jpa.model.AuthorInfo;
 import codelook.jpa.model.BookInfo;
 
 import codelook.jpa.model.ListingInfo;
+import codelook.jpa.model.UserInfo;
 import codelook.jpa.repository.AuthorInfoRepo;
 import codelook.jpa.repository.BookInfoRepo;
 
 import codelook.jpa.repository.ListingInfoRepo;
 
+import codelook.jpa.repository.UserInfoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 
 @org.springframework.stereotype.Controller
@@ -31,6 +35,8 @@ public class MainViewController {
     BookInfoRepo bookInfoRepo;
     @Autowired
     AuthorInfoRepo authorInfoRepo;
+    @Autowired
+    UserInfoRepo userInfoRepo;
 
     @GetMapping("/allBooks")
     public String AllBooks(Model model) {
@@ -119,23 +125,24 @@ public class MainViewController {
         return "newBook";
     }
 
-    /*@PostMapping("/books")
+    @PostMapping("/books")
     public String addBook(@RequestParam String name,
+                          @RequestParam List<Long> authorIds,
                           @RequestParam String description,
                           @RequestParam String publisher,
                           @RequestParam int pageCount,
-                          @RequestParam String genre,
-                          @RequestParam List<Long> authorIds) {  // List of author IDs from the form
-        UserInfo user = UserInfoRepo.findBy(publisher);
+                          @RequestParam String genre
+                          ) {  // List of author IDs from the form
+        UserInfo user = StaticData.somePublisher;
+        userInfoRepo.save(user);
         // Fetch authors based on the list of IDs provided in the form
         List<AuthorInfo> authors = authorInfoRepo.findAllById(authorIds);
-
         // Create and save the BookInfo with the selected authors
-        BookInfo book = new BookInfo(name, authors, description, publisher, pageCount, genre);
+        BookInfo book = new BookInfo(name, authors, description, user, pageCount, genre);
         bookInfoRepo.save(book);
 
         return "redirect:/allBooks";  // Redirect to the all books page after saving
-    }*/
+    }
 
 
 }

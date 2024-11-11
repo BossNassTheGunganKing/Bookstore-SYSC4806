@@ -1,5 +1,2 @@
-codelook/jpa/AuthorInfoTest.class
-codelook/jpa/BookInfoTest.class
-codelook/jpa/ListingInfoTest.class
-codelook/jpa/BookstoreControllerTest.class
 codelook/jpa/SmokeTest.class
+codelook/jpa/BookstoreControllerTest.class
