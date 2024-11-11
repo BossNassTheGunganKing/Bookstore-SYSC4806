@@ -1,24 +1,30 @@
-package codelook.jpa.objects;
+package codelook.jpa.view;
 
+import codelook.jpa.model.AuthorInfo;
+import codelook.jpa.model.BookInfo;
+
+import codelook.jpa.model.ListingInfo;
 import codelook.jpa.repository.AuthorInfoRepo;
 import codelook.jpa.repository.BookInfoRepo;
+
 import codelook.jpa.repository.ListingInfoRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class MainViewController {
     @Autowired
     ListingInfoRepo listingInfoRepo;
     @Autowired
@@ -64,7 +70,7 @@ public class Controller {
                              @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date DatePublished,
                              @RequestParam String format,
                              @RequestParam BigDecimal OriginalPrice,
-                             @RequestParam Integer bookId,  // Use Long for bookId
+                             @RequestParam Long bookId,  // Use Long for bookId
                              @RequestParam int CopiesRemaining) {
 
         // Convert the format string to enum
@@ -113,14 +119,14 @@ public class Controller {
         return "newBook";
     }
 
-    @PostMapping("/books")
+    /*@PostMapping("/books")
     public String addBook(@RequestParam String name,
                           @RequestParam String description,
                           @RequestParam String publisher,
                           @RequestParam int pageCount,
                           @RequestParam String genre,
-                          @RequestParam List<Integer> authorIds) {  // List of author IDs from the form
-
+                          @RequestParam List<Long> authorIds) {  // List of author IDs from the form
+        UserInfo user = UserInfoRepo.findBy(publisher);
         // Fetch authors based on the list of IDs provided in the form
         List<AuthorInfo> authors = authorInfoRepo.findAllById(authorIds);
 
@@ -129,7 +135,7 @@ public class Controller {
         bookInfoRepo.save(book);
 
         return "redirect:/allBooks";  // Redirect to the all books page after saving
-    }
+    }*/
 
 
 }
