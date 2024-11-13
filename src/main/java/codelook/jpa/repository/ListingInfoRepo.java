@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ListingInfoRepo extends JpaRepository<ListingInfo, Long> {
-//    ListingInfo findById(Long id);
+    ListingInfo findListingInfoById(Long id);
 
 }
