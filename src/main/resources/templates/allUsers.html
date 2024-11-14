@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Manage Users</h1>
+
+    <!-- Display Users -->
+    <h2 class="my-4">User List</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.role}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h1>Register New User</h1>
+    <form th:action="@{/users/add}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="role">Role:</label>
+        <select id="role" name="role" required>
+            <option value="DEFAULT">Default</option>
+            <option value="PUBLISHER">Publisher</option>
+            <option value="ADMIN">Admin</option>
+        </select>
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+</body>
+<!-- Return to Home Button -->
+<div style="margin-top: 20px;">
+    <a href="/" class="btn btn-secondary">Return to Home</a>
+</div>
+
+</html>

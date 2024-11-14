@@ -1,18 +1,19 @@
 package codelook.jpa.view;
 
 import codelook.jpa.StaticData;
-import codelook.jpa.model.AuthorInfo;
-import codelook.jpa.model.BookInfo;
+import codelook.jpa.controller.UserController;
+import codelook.jpa.model.*;
 
-import codelook.jpa.model.ListingInfo;
-import codelook.jpa.model.UserInfo;
 import codelook.jpa.repository.AuthorInfoRepo;
 import codelook.jpa.repository.BookInfoRepo;
 
 import codelook.jpa.repository.ListingInfoRepo;
 
 import codelook.jpa.repository.UserInfoRepo;
+import codelook.jpa.request.UserRegistrationRequest;
+import codelook.jpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +22,13 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
+import static java.lang.String.valueOf;
 
 
 @org.springframework.stereotype.Controller
@@ -37,6 +41,19 @@ public class MainViewController {
     AuthorInfoRepo authorInfoRepo;
     @Autowired
     UserInfoRepo userInfoRepo;
+
+    private final RestTemplate restTemplate;
+
+    private static String BASE_URL;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserController userController;
+
+    public MainViewController(RestTemplate restTemplate, @Value("${api.base.url}") String baseUrl) {
+        this.restTemplate = restTemplate;
+        BASE_URL = baseUrl;
+    }
 
     @GetMapping("/allBooks")
     public String AllBooks(Model model) {
@@ -142,6 +159,19 @@ public class MainViewController {
         bookInfoRepo.save(book);
 
         return "redirect:/allBooks";  // Redirect to the all books page after saving
+    }
+
+    @GetMapping("/users/view")
+    public String usersPage(Model model) {
+        model.addAttribute("users", userInfoRepo.findAll());
+        model.addAttribute("userRegistrationRequest", new UserRegistrationRequest("", "", "", "DEFAULT"));
+        return "allUsers";
+    }
+
+    @PostMapping("/users/add")
+    public String registerUser(@ModelAttribute UserRegistrationRequest registrationRequest) {
+        userController.createUser(registrationRequest);
+        return "redirect:/users/view";
     }
 
 
