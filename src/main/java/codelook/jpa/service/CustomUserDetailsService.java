@@ -15,9 +15,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserInfoRepo userInfoRepo;
 
-
     @Autowired
-    public CustomUserDetailsService(UserInfoRepo userInfoRepo, PasswordEncoder passwordEncoder) {
+    public CustomUserDetailsService(UserInfoRepo userInfoRepo) {
         this.userInfoRepo = userInfoRepo;
     }
 
