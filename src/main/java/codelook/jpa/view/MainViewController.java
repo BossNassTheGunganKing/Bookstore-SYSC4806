@@ -114,7 +114,7 @@ public class MainViewController {
 
     @GetMapping("/listing/{id}")
     public String listingPage(@PathVariable Long id, Model model) {
-        model.addAttribute("Listing", listingInfoRepo.findById(id));
+        model.addAttribute("Listing", listingInfoRepo.findListingInfoById(id));
         return "listing";
     }
 

@@ -15,11 +15,11 @@
             </thead>
             <tbody>
             <tr th:each="listing : ${listings}">
-                <td th:text="${listing.getISBN()}"></td>
+                <td th:text="${listing.ISBN}"></td>
                 <td>
-                    <a th:href="@{/listing/{id}(id=${listing.getId()})}" th:text="${listing.getName()}"></a>
+                    <a th:href="@{/listing/{id}(id=${listing.id})}" th:text="${listing.name}"></a>
                 </td>
-                <td th:text="${listing.getBook().getPublisher()}"></td>
+                <td th:text="${listing.book.publisher.username}"></td>
             </tr>
             </tbody>
         </table>
