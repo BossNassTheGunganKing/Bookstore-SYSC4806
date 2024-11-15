@@ -1,6 +1,7 @@
 package codelook.jpa;
 
 import codelook.jpa.model.*;
+import codelook.jpa.request.UserRegistrationRequest;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -32,4 +33,9 @@ public class StaticData {
 
     public static final OrderInfo orderInfo1 = new OrderInfo(OrderStatus.IN_CART, List.of(orderItem1));
     public static final OrderInfo orderInfo2 = new OrderInfo(OrderStatus.PENDING, List.of(orderItem1,orderItem2));
+
+    public static final UserRegistrationRequest validRegistrationRequest = new UserRegistrationRequest("newUser", "validPassword123", "email@example.com", "");
+    public static final UserRegistrationRequest allBlankRegistrationRequest = new UserRegistrationRequest("", "", "","");
+    public static final UserRegistrationRequest allNullRegistrationRequest = new UserRegistrationRequest(null, null, null,"");
+    public static final UserRegistrationRequest badPasswordAndEmailRegistrationRequest = new UserRegistrationRequest("newUser", "invalid", "notanemail","");
 }

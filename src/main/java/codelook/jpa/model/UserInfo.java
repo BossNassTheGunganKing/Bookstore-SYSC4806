@@ -3,7 +3,6 @@ package codelook.jpa.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.apache.commons.codec.digest.DigestUtils;
 
 @Entity
 public class UserInfo {
@@ -22,11 +21,11 @@ public class UserInfo {
 
     public UserInfo() {}
 
-    public UserInfo(String username, String password, String email, UserRole role) {
+    public UserInfo(String username, String passwordHash, String email, UserRole role) {
         this.username = username;
         this.email =email;
         this.role = role;
-        this.setPassword(password);
+        this.passwordHash = passwordHash;
     }
 
     public void setId(Long id) {
@@ -45,12 +44,12 @@ public class UserInfo {
         this.username = username;
     }
 
-    public String getPasswordHash() {
+    public String getPassword() {
         return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.passwordHash = DigestUtils.shaHex(password);
+    public void setPasswordHash(String encodedPassword) {
+        this.passwordHash = encodedPassword;
     }
 
     public String getEmail() {

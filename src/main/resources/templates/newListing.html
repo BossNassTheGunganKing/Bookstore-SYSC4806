@@ -19,7 +19,7 @@
 <!--    <button type="submit">Submit</button>-->
 <!--</form>-->
 
-<form action="/newListing" method="post">
+<form th:action="@{/newListing}" method="post">
     <div>
         <label for="name">Listing Name:</label>
         <input type="text" id="name" name="name" required>
