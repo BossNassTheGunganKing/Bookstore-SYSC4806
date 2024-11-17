@@ -7,6 +7,7 @@ import codelook.jpa.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@org.springframework.stereotype.Controller
+@Controller
 public class MainViewController {
     @Autowired
     ListingInfoRepo listingInfoRepo;
@@ -151,6 +152,27 @@ public class MainViewController {
         bookInfoRepo.save(book);
 
         return "redirect:/allBooks";  // Redirect to the all books page after saving
+    }
+
+    // Available Genres Pages
+    @GetMapping("/allGenres")
+    public String allGenresPage(Model model) {
+        model.addAttribute("genres", availableGenresRepo.findAll());
+        return "allGenres";
+    }
+
+    @GetMapping("/genre/{type}")
+    public String genrePage(@PathVariable String type, Model model) {
+        model.addAttribute("genres", type);
+        List<BookInfo> booksToShow = new java.util.ArrayList<>(List.of());
+
+        for (BookInfo b : bookInfoRepo.findAll()) {
+            if (b.getGenre().equalsIgnoreCase(type)) {
+                booksToShow.add(b);
+            }
+        }
+        model.addAttribute("books", booksToShow);
+        return "genre";
     }
 
 

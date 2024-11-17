@@ -49,6 +49,9 @@ public class JpaApplication {
             listingInfoRepo.save(listingInfo2);
             listingInfoRepo.save(listingInfo3);
 
+            bookInfoRepo.saveAll(StaticData.manyBooks);
+            listingInfoRepo.saveAll(StaticData.manyListings);
+
 
         };
     }

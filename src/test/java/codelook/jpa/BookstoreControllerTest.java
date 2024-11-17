@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.http.MediaType;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -56,5 +57,13 @@ public class BookstoreControllerTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection())  // Expecting a redirection after creation
                 .andExpect(header().string("Location", "/allBooks"));  // Redirects to /allBooks page
+    }
+
+    // test to ensure that the attribute books has the two horror books
+    @Test
+    public void testGenres() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/genre/Horror"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("books", hasSize(2)));
     }
 }
