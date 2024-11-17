@@ -1,17 +1,10 @@
 package codelook.jpa.view;
 
 import codelook.jpa.StaticData;
-import codelook.jpa.model.AuthorInfo;
-import codelook.jpa.model.BookInfo;
+import codelook.jpa.model.*;
 
-import codelook.jpa.model.ListingInfo;
-import codelook.jpa.model.UserInfo;
-import codelook.jpa.repository.AuthorInfoRepo;
-import codelook.jpa.repository.BookInfoRepo;
+import codelook.jpa.repository.*;
 
-import codelook.jpa.repository.ListingInfoRepo;
-
-import codelook.jpa.repository.UserInfoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +30,8 @@ public class MainViewController {
     AuthorInfoRepo authorInfoRepo;
     @Autowired
     UserInfoRepo userInfoRepo;
+    @Autowired
+    AvailableGenresRepo availableGenresRepo;
 
     @GetMapping("/allBooks")
     public String AllBooks(Model model) {
@@ -135,6 +130,20 @@ public class MainViewController {
                           ) {  // List of author IDs from the form
         UserInfo user = StaticData.somePublisher;
         userInfoRepo.save(user);
+
+        boolean newGenre = true;
+        List<AvailableGenres> availableGenres = availableGenresRepo.findAll();
+        for (AvailableGenres ag : availableGenres) {
+            if(ag.genre.equalsIgnoreCase(genre)){
+                newGenre = false;
+                break;
+            }
+        }
+        if(newGenre){
+            AvailableGenres newGenreType = new AvailableGenres(genre);
+            availableGenresRepo.save(newGenreType);
+            System.out.println("New Genre Added: " + newGenreType.genre);
+        }
         // Fetch authors based on the list of IDs provided in the form
         List<AuthorInfo> authors = authorInfoRepo.findAllById(authorIds);
         // Create and save the BookInfo with the selected authors

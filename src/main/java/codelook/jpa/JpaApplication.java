@@ -1,9 +1,6 @@
 package codelook.jpa;
 
-import codelook.jpa.model.AuthorInfo;
-import codelook.jpa.model.BookInfo;
-import codelook.jpa.model.ListingInfo;
-import codelook.jpa.model.UserInfo;
+import codelook.jpa.model.*;
 
 import codelook.jpa.repository.*;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +15,7 @@ public class JpaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo, UserInfoRepo userInfoRepo, OrderInfoRepo orderInfoRepo, OrderItemRepo orderItemRepo) {
+    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo, UserInfoRepo userInfoRepo, OrderInfoRepo orderInfoRepo, OrderItemRepo orderItemRepo, AvailableGenresRepo availableGenresRepo) {
         return (args) -> {
             AuthorInfo authorInfo1 = StaticData.authorInfo1;
             AuthorInfo authorInfo2 = StaticData.authorInfo2;
@@ -35,6 +32,8 @@ public class JpaApplication {
             ListingInfo listingInfo1 = StaticData.listing1;
             ListingInfo listingInfo2 = StaticData.listing2;
             ListingInfo listingInfo3 = StaticData.listing3;
+
+            availableGenresRepo.saveAll(StaticData.availableGenresDefaultList);
 
             authorInfoRepo.save(authorInfo1);
             authorInfoRepo.save(authorInfo2);

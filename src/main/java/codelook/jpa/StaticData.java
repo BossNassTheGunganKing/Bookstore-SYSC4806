@@ -3,6 +3,8 @@ package codelook.jpa;
 import codelook.jpa.model.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -32,4 +34,6 @@ public class StaticData {
 
     public static final OrderInfo orderInfo1 = new OrderInfo(OrderStatus.IN_CART, List.of(orderItem1));
     public static final OrderInfo orderInfo2 = new OrderInfo(OrderStatus.PENDING, List.of(orderItem1,orderItem2));
+
+    public static final List<AvailableGenres> availableGenresDefaultList = new ArrayList<AvailableGenres>(Arrays.asList(new AvailableGenres("Horror"),new AvailableGenres("Action"),new AvailableGenres("Non-fiction"),new AvailableGenres("Fiction")));
 }
