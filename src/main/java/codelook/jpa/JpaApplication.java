@@ -52,7 +52,11 @@ public class JpaApplication {
             listingInfoRepo.save(listingInfo2);
             listingInfoRepo.save(listingInfo3);
 
-            bookInfoRepo.saveAll(StaticData.manyBooks);
+            for(BookInfo bookInfo : StaticData.manyBooks) {
+                bookInfo.setPublisher(publisher1);
+                bookInfoRepo.save(bookInfo);
+            }
+            //bookInfoRepo.saveAll(StaticData.manyBooks);
             listingInfoRepo.saveAll(StaticData.manyListings);
 
 
