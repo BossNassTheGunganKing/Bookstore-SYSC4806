@@ -16,7 +16,7 @@ public class JpaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo, UserInfoRepo userInfoRepo, OrderInfoRepo orderInfoRepo, OrderItemRepo orderItemRepo, UserService userService) {
+    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo, UserInfoRepo userInfoRepo, OrderInfoRepo orderInfoRepo, OrderItemRepo orderItemRepo, UserService userService, AvailableGenresRepo availableGenresRepo) {
         return (args) -> {
             AuthorInfo authorInfo1 = StaticData.authorInfo1;
             AuthorInfo authorInfo2 = StaticData.authorInfo2;
@@ -35,6 +35,8 @@ public class JpaApplication {
             ListingInfo listingInfo2 = StaticData.listing2;
             ListingInfo listingInfo3 = StaticData.listing3;
 
+            availableGenresRepo.saveAll(StaticData.availableGenresDefaultList);
+
             authorInfoRepo.save(authorInfo1);
             authorInfoRepo.save(authorInfo2);
 
@@ -49,6 +51,13 @@ public class JpaApplication {
             listingInfoRepo.save(listingInfo1);
             listingInfoRepo.save(listingInfo2);
             listingInfoRepo.save(listingInfo3);
+
+            for(BookInfo bookInfo : StaticData.manyBooks) {
+                bookInfo.setPublisher(publisher1);
+                bookInfoRepo.save(bookInfo);
+            }
+            //bookInfoRepo.saveAll(StaticData.manyBooks);
+            listingInfoRepo.saveAll(StaticData.manyListings);
 
 
         };

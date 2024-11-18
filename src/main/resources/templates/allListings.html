@@ -2,8 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>New Listing</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
+        <script>
+            $(function(){
+                $('#navbar').load('navbar.html');
+                window.scrollTo(-20,0);
+            });
+        </script>
     </head>
     <body>
+    <div id="navbar"></div>
         <h1>Current Listings</h1>
         <table class="table">
             <thead class="thead-dark">
@@ -24,8 +35,5 @@
             </tbody>
         </table>
     </body>
-    <!-- Return to Home Button -->
-    <div style="margin-top: 20px;">
-        <a href="/" class="btn btn-secondary">Return to Home</a>
-    </div>
+
 </html>

@@ -3,9 +3,11 @@ package codelook.jpa.view;
 import codelook.jpa.StaticData;
 import codelook.jpa.controller.UserController;
 import codelook.jpa.model.*;
+import codelook.jpa.model.*;
 
 import codelook.jpa.repository.AuthorInfoRepo;
 import codelook.jpa.repository.BookInfoRepo;
+import codelook.jpa.repository.*;
 
 import codelook.jpa.repository.ListingInfoRepo;
 
@@ -15,6 +17,7 @@ import codelook.jpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +43,8 @@ public class MainViewController {
     AuthorInfoRepo authorInfoRepo;
     @Autowired
     UserInfoRepo userInfoRepo;
+    @Autowired
+    AvailableGenresRepo availableGenresRepo;
 
     private final RestTemplate restTemplate;
 
@@ -151,6 +156,20 @@ public class MainViewController {
                           ) {  // List of author IDs from the form
         UserInfo user = StaticData.somePublisher;
         userInfoRepo.save(user);
+
+        boolean newGenre = true;
+        List<AvailableGenres> availableGenres = availableGenresRepo.findAll();
+        for (AvailableGenres ag : availableGenres) {
+            if(ag.genre.equalsIgnoreCase(genre)){
+                newGenre = false;
+                break;
+            }
+        }
+        if(newGenre){
+            AvailableGenres newGenreType = new AvailableGenres(genre);
+            availableGenresRepo.save(newGenreType);
+            System.out.println("New Genre Added: " + newGenreType.genre);
+        }
         // Fetch authors based on the list of IDs provided in the form
         List<AuthorInfo> authors = authorInfoRepo.findAllById(authorIds);
         // Create and save the BookInfo with the selected authors
@@ -171,6 +190,27 @@ public class MainViewController {
     public String registerUser(@ModelAttribute UserRegistrationRequest registrationRequest) {
         userController.createUser(registrationRequest);
         return "redirect:/users/view";
+    }
+
+    // Available Genres Pages
+    @GetMapping("/allGenres")
+    public String allGenresPage(Model model) {
+        model.addAttribute("genres", availableGenresRepo.findAll());
+        return "allGenres";
+    }
+
+    @GetMapping("/genre/{type}")
+    public String genrePage(@PathVariable String type, Model model) {
+        model.addAttribute("genres", type);
+        List<BookInfo> booksToShow = new java.util.ArrayList<>(List.of());
+
+        for (BookInfo b : bookInfoRepo.findAll()) {
+            if (b.getGenre().equalsIgnoreCase(type)) {
+                booksToShow.add(b);
+            }
+        }
+        model.addAttribute("books", booksToShow);
+        return "genre";
     }
 
 
