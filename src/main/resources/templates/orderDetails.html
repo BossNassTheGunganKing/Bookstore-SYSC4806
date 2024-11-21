@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Order Details</h1>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${order.items}">
+            <td th:text="${item.listing.name}">Item Name</td>
+            <td th:text="${item.priceAtPurchase}">$10.99</td>
+            <td th:text="${item.quantity}">2</td>
+            <td th:text="${item.priceAtPurchase.multiply(new java.math.BigDecimal(item.quantity))}">$21.98</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Total Price: <span th:text="${order.totalPrice}">$0.00</span></h3>
+    <h4>Status: <span th:text="${order.orderStatus}">Pending</span></h4>
+
+    <div class="mt-4">
+        <a th:href="@{/orders}" class="btn btn-secondary btn-lg">Back to Orders</a>
+        <a th:href="@{/}" class="btn btn-primary btn-lg">Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

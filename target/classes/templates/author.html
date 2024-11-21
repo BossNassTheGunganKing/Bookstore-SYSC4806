@@ -20,7 +20,7 @@
 
     <!-- Form to Add a New Author -->
     <h2>Add New Author</h2>
-    <form action="/authors" method="post">
+    <form th:action="@{/authors}" method="post">
         <div class="form-group">
             <label for="authorName">Name:</label>
             <input type="text" id="authorName" name="name" class="form-control" required>

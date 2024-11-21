@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Your Shopping Cart</h1>
+
+    <!-- Shopping Cart Table -->
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cart?.items}" th:if="${cart?.items?.size() > 0}">
+            <td th:text="${item.listing.name}">Item Name</td>
+            <td th:text="${item.priceAtPurchase}">$19.99</td>
+            <td>
+                <form action="/cart/update" method="post" class="form-inline">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="itemId" th:value="${item.id}"/>
+                    <input type="number" class="form-control mr-2" name="quantity" th:value="${item.quantity}" min="1"/>
+                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                </form>
+            </td>
+            <td th:text="${item.priceAtPurchase.multiply(new java.math.BigDecimal(item.quantity))}">$39.98</td>
+            <td>
+                <form action="/cart/remove" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="itemId" th:value="${item.id}"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${cart?.items?.isEmpty()}">
+            <td colspan="5" class="text-center">Your cart is empty.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Total Price Section -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h3>Total Price: <span th:text="${cart.totalPrice}">$0.00</span></h3>
+        <div>
+            <a th:href="@{/checkout}" class="btn btn-success btn-lg">Proceed to Checkout</a>
+            <a th:href="@{/}" class="btn btn-secondary btn-lg">Continue Shopping</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+</body>
+</html>

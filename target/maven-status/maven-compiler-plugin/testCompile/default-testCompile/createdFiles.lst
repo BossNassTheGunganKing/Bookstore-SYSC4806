@@ -1,2 +1,3 @@
 codelook/jpa/SmokeTest.class
-codelook/jpa/BookstoreControllerTest.class
+codelook/jpa/controller/UserControllerTest.class
+codelook/jpa/controller/BookstoreControllerTest.class

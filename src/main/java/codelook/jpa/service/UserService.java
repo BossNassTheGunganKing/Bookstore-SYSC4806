@@ -5,13 +5,15 @@ import codelook.jpa.repository.UserInfoRepo;
 import codelook.jpa.request.ErrorResponse;
 import codelook.jpa.request.UserRegistrationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import codelook.jpa.model.UserInfo;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static java.lang.String.valueOf;
 
@@ -71,5 +73,30 @@ public class UserService {
         }
         return new ErrorResponse("Invalid user registration request",errors);
 
+    }
+
+    public List<UserInfo> getAllUsers() {
+        return userInfoRepo.findAll();
+    }
+
+    /**
+     * Get the currently logged-in user from the Security Context.
+     */
+    public UserInfo getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Optional<UserInfo> user = userInfoRepo.findByUsername(username);
+            return user.orElseThrow(() -> new RuntimeException("User not found"));
+        }
+        throw new RuntimeException("No authenticated user found");
+    }
+
+    /**
+     * Get the role of the currently logged-in user.
+     */
+    public UserRole getCurrentUserRole() {
+        UserInfo currentUser = getCurrentUser();
+        return currentUser.getRole();
     }
 }

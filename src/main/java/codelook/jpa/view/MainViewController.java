@@ -46,6 +46,8 @@ public class MainViewController {
     @Autowired
     AvailableGenresRepo availableGenresRepo;
 
+
+
     private final RestTemplate restTemplate;
 
     private static String BASE_URL;
@@ -212,6 +214,7 @@ public class MainViewController {
         model.addAttribute("books", booksToShow);
         return "genre";
     }
+
 
 
 }

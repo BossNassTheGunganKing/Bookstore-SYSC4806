@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Checkout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Checkout</h1>
+
+    <!-- Order Summary Table -->
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Check if items exist -->
+        <tr th:each="item : ${order?.items}" th:if="${order?.items?.size() > 0}">
+            <td th:text="${item.listing?.name}">Item Name</td>
+            <td th:text="${item.priceAtPurchase}">$19.99</td>
+            <td th:text="${item.quantity}">2</td>
+            <td th:text="${item.totalPrice}">$39.98</td>
+        </tr>
+        <tr th:if="${order?.items?.isEmpty()}">
+            <td colspan="4" class="text-center">No items in this order.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Total Price Section -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h3>Total Price: <span th:text="${order?.totalPrice}">$0.00</span></h3>
+    </div>
+
+    <!-- Order Details -->
+    <div class="mt-4">
+        <h4>Order Details</h4>
+        <p><strong>Order ID:</strong> <span th:text="${order?.id}">12345</span></p>
+        <p><strong>Status:</strong> <span th:text="${order?.orderStatus}">Pending</span></p>
+    </div>
+
+    <!-- Actions -->
+    <div class="mt-4 d-flex justify-content-between">
+        <a th:href="@{/}" class="btn btn-secondary btn-lg">Continue Shopping</a>
+        <a th:href="@{/cart}" class="btn btn-primary btn-lg">View Cart</a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+</body>
+</html>
