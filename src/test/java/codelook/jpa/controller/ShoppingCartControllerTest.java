@@ -70,22 +70,19 @@ public class ShoppingCartControllerTest {
     @Test
     @WithMockUser
     public void testRemoveItemFromCart() throws Exception {
-        // Add an item to the cart
         mockMvc.perform(MockMvcRequestBuilders.post("/cart/add").with(csrf())
-                        .param("listingId", "1")  // Replace with valid listingId
+                        .param("listingId", "1")
                         .param("quantity", "2")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/cart"));
 
-        // Remove the item
         mockMvc.perform(MockMvcRequestBuilders.post("/cart/remove").with(csrf())
                         .param("itemId", "1")  // Replace with valid itemId
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/cart"));
 
-        // Verify the cart is empty
         mockMvc.perform(MockMvcRequestBuilders.get("/cart"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("cart", hasProperty("items", empty())));
@@ -97,16 +94,14 @@ public class ShoppingCartControllerTest {
     @Test
     @WithMockUser
     public void testUpdateCartItemQuantity() throws Exception {
-        // Step 1: Add an item to the cart
         mockMvc.perform(MockMvcRequestBuilders.post("/cart/add")
-                        .param("listingId", "1") // Assume listingId 1 exists in your database
+                        .param("listingId", "1")
                         .param("quantity", "2")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection());
 
 
-        // Step 4: Update the item quantity using the retrieved Item ID
         mockMvc.perform(MockMvcRequestBuilders.post("/cart/update")
                         .param("itemId", "1")
                         .param("quantity", "5")

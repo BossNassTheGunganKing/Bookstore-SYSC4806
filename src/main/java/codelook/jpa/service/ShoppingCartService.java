@@ -36,8 +36,7 @@ public class ShoppingCartService {
      * Get the current user's cart. Create a new one if it doesn't exist.
      */
     public OrderInfo getCart() {
-        // Assume we have a single user for simplicity, or fetch the logged-in user
-        UserInfo currentUser = getCurrentUser(); // Replace with real user fetching logic
+        UserInfo currentUser = getCurrentUser();
         return orderInfoRepo.findByUserAndOrderStatus(currentUser, OrderStatus.IN_CART)
                 .orElseGet(() -> createNewCart(currentUser));
     }
@@ -151,7 +150,6 @@ public class ShoppingCartService {
      * Placeholder for fetching the currently logged-in user.
      */
     private UserInfo getCurrentUser() {
-        // Replace with actual user fetching logic, e.g., Spring Security
         return userInfoRepo.findById(1L).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
@@ -166,7 +164,7 @@ public class ShoppingCartService {
      * Fetch all orders for the currently logged-in user.
      */
     public List<OrderInfo> getOrdersForCurrentUser() {
-        UserInfo currentUser = getCurrentUser(); // Replace with actual logic for logged-in user
+        UserInfo currentUser = getCurrentUser();
         return orderInfoRepo.findByUser(currentUser);
     }
 }
