@@ -1,9 +1,9 @@
+codelook/jpa/model/AvailableGenres.class
+codelook/jpa/config/SecurityConfig.class
 codelook/jpa/JpaApplication.class
 codelook/jpa/request/UserRegistrationRequest.class
 codelook/jpa/service/CustomUserDetailsService.class
 codelook/jpa/request/ErrorResponse.class
-codelook/jpa/model/AvailableGenres.class
-codelook/jpa/config/SecurityConfig.class
 codelook/jpa/service/UserService.class
 codelook/jpa/controller/UserController.class
 codelook/jpa/repository/AvailableGenresRepo.class

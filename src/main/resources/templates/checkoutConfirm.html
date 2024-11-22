@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirm Checkout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Confirm Checkout</h1>
+
+    <!-- Display error message if present -->
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <!-- Order Summary Table -->
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${order.items}">
+            <td th:text="${item.listing.name}">Item Name</td>
+            <td th:text="${item.priceAtPurchase}">$0.00</td>
+            <td th:text="${item.quantity}">0</td>
+            <td th:text="${item.totalPrice}">$0.00</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Total Price -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h4>Total: <span th:text="${order.totalPrice}">$0.00</span></h4>
+    </div>
+
+    <!-- Payment Form -->
+    <form th:action="@{/checkout/placeOrder}" method="post" class="mt-4">
+        <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+        </div>
+        <div class="form-group">
+            <label for="cardExpiry">Expiry Date</label>
+            <input type="text" class="form-control" id="cardExpiry" name="cardExpiry" placeholder="MM/YY" required>
+        </div>
+        <div class="form-group">
+            <label for="cardCVC">CVC</label>
+            <input type="text" class="form-control" id="cardCVC" name="cardCVC" placeholder="123" required>
+        </div>
+        <button type="submit" class="btn btn-success btn-lg btn-block">Place Order</button>
+    </form>
+
+    <!-- Back to Cart Button -->
+    <a th:href="@{/cart}" class="btn btn-secondary btn-lg btn-block mt-3">Back to Cart</a>
+</div>
+</body>
+</html>

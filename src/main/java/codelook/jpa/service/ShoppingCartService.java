@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -166,5 +167,27 @@ public class ShoppingCartService {
     public List<OrderInfo> getOrdersForCurrentUser() {
         UserInfo currentUser = getCurrentUser();
         return orderInfoRepo.findByUser(currentUser);
+    }
+
+    /**
+     * Validate payment details and place the order.
+     */
+    public OrderInfo placeOrder(String cardNumber, String cardExpiry, String cardCVC) {
+        OrderInfo cart = getCart();
+
+        if (cart.getItems().isEmpty()) {
+            throw new RuntimeException("Cart is empty. Add items before placing the order.");
+        }
+
+        // fake validation for payment details
+        if (cardNumber == null || cardNumber.isEmpty() || cardExpiry == null || cardCVC == null) {
+            throw new RuntimeException("Invalid payment details. Please fill in all fields.");
+        }
+
+        cart.setCreatedDate(LocalDateTime.now());
+
+        // Transition the cart to a pending order
+        cart.checkout();
+        return orderInfoRepo.save(cart);
     }
 }

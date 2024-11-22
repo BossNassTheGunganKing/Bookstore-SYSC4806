@@ -31,7 +31,7 @@
                     <button type="submit" class="btn btn-primary btn-sm">Update</button>
                 </form>
             </td>
-            <td th:text="${item.priceAtPurchase.multiply(new java.math.BigDecimal(item.quantity))}">$39.98</td>
+            <td th:text="${item.totalPrice}">$39.98</td>
             <td>
                 <form action="/cart/remove" method="post">
                     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
@@ -48,9 +48,12 @@
 
     <!-- Total Price Section -->
     <div class="d-flex justify-content-between align-items-center">
-        <h3>Total Price: <span th:text="${cart.totalPrice}">$0.00</span></h3>
+        <h3>
+            Total Price:
+            <span th:text="${cart?.items?.isEmpty() ? '$0.00' : cart.totalPrice}">$0.00</span>
+        </h3>
         <div>
-            <a th:href="@{/checkout}" class="btn btn-success btn-lg">Proceed to Checkout</a>
+            <a th:href="@{/checkout/confirm}" class="btn btn-success btn-lg" th:if="${!cart?.items?.isEmpty()}">Proceed to Checkout</a>
             <a th:href="@{/}" class="btn btn-secondary btn-lg">Continue Shopping</a>
         </div>
     </div>

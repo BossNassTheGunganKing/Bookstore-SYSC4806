@@ -108,4 +108,37 @@ public class ShoppingCartController {
             return "cart"; // Reload the cart page with error
         }
     }
+
+    /**
+     * Show the checkout confirmation page.
+     */
+    @GetMapping("/checkout/confirm")
+    public String showCheckoutForm(Model model) {
+        OrderInfo cart = shoppingCartService.getCart();
+        if (cart.getItems().isEmpty()) {
+            model.addAttribute("error", "Your cart is empty. Add items before proceeding to checkout.");
+            return "cart"; // Redirect to the cart page if empty
+        }
+        model.addAttribute("order", cart);
+        return "checkoutConfirm";
+    }
+
+    /**
+     * Process the checkout and place the order.
+     */
+    @PostMapping("/checkout/placeOrder")
+    public String placeOrder(@RequestParam String cardNumber,
+                             @RequestParam String cardExpiry,
+                             @RequestParam String cardCVC,
+                             Model model) {
+        try {
+            OrderInfo order = shoppingCartService.placeOrder(cardNumber, cardExpiry, cardCVC);
+            model.addAttribute("order", order); // Add the order object to the model
+            return "orderConfirmation";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("order", shoppingCartService.getCart());
+            return "checkoutConfirm";
+        }
+    }
 }

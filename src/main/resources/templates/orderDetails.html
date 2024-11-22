@@ -22,7 +22,7 @@
             <td th:text="${item.listing.name}">Item Name</td>
             <td th:text="${item.priceAtPurchase}">$10.99</td>
             <td th:text="${item.quantity}">2</td>
-            <td th:text="${item.priceAtPurchase.multiply(new java.math.BigDecimal(item.quantity))}">$21.98</td>
+            <td th:text="${item.priceAtPurchase.multiply((item.quantity))}">$21.98</td>
         </tr>
         </tbody>
     </table>
