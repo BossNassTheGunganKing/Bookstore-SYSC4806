@@ -1,6 +1,8 @@
 package codelook.jpa.controller;
 import codelook.jpa.StaticData;
+import codelook.jpa.model.UserInfo;
 import codelook.jpa.model.UserRole;
+import codelook.jpa.repository.UserInfoRepo;
 import codelook.jpa.request.ErrorResponse;
 import codelook.jpa.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +21,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -34,6 +38,10 @@ class UserControllerTest {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserInfoRepo userInfoRepo;
+
     /*@Autowired
     private WebApplicationContext webApplicationContext;*/
 
@@ -47,7 +55,7 @@ class UserControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testNewUserRegistration() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users").with(csrf())
+        mockMvc.perform(post("/users").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(StaticData.validRegistrationRequest)))
                 .andExpect(status().isCreated());  // Expect HTTP 201 (Created)

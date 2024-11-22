@@ -9,7 +9,9 @@ import codelook.jpa.model.ListingInfo;
 import codelook.jpa.model.OrderItem;
 import codelook.jpa.model.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -133,8 +135,13 @@ public class ShoppingCartService {
         if (cart.getItems().isEmpty()) {
             throw new RuntimeException("Cart is empty");
         }
+
+        // Ensure the cart is assigned to the current user
+        UserInfo currentUser = getCurrentUser();
+        cart.setUser(currentUser);
+
         cart.checkout();
-        return orderInfoRepo.save(cart);
+        return orderInfoRepo.save(cart); // Save the updated cart
     }
 
     /**
@@ -150,10 +157,15 @@ public class ShoppingCartService {
     /**
      * Placeholder for fetching the currently logged-in user.
      */
-    private UserInfo getCurrentUser() {
-        return userInfoRepo.findById(1L).orElseThrow(() -> new RuntimeException("User not found"));
+    public UserInfo getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            return userInfoRepo.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+        }
+        throw new RuntimeException("No authenticated user found");
     }
-
     /**
      * Fetch all available listings for display on the "add item" page.
      */

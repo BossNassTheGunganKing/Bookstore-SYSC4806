@@ -1,8 +1,9 @@
 package codelook.jpa.controller;
 
 import codelook.jpa.model.OrderInfo;
+import codelook.jpa.model.UserInfo;
 import codelook.jpa.repository.OrderInfoRepo;
-import codelook.jpa.service.ShoppingCartService;
+import codelook.jpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private ShoppingCartService shoppingCartService;
+    private UserService userService;
 
     @Autowired
     private OrderInfoRepo orderInfoRepo;
@@ -26,10 +27,16 @@ public class OrderController {
      */
     @GetMapping("/orders")
     public String viewOrders(Model model) {
-        model.addAttribute("orders", shoppingCartService.getOrdersForCurrentUser());
-        return "orders";
+        try {
+            UserInfo currentUser = userService.getCurrentUser(); // Get the logged-in user
+            List<OrderInfo> orders = orderInfoRepo.findByUser(currentUser);
+            model.addAttribute("orders", orders);
+            return "orders";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to load orders: " + e.getMessage());
+            return "account";
+        }
     }
-
     @GetMapping("/orders/{id}")
     public String viewOrderDetails(@PathVariable Long id, Model model) {
         OrderInfo order = orderInfoRepo.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));

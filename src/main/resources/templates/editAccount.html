@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Account</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4">Edit Account</h1>
+    <form action="/account/edit" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" th:value="${user.username}" required />
+        </div>
+
+        <div class="form-group">
+            <label for="password">New Password</label>
+            <input type="password" class="form-control" id="password" name="password" required minlength="8" />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" th:value="${user.email}" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Account</button>
+        <a href="/account" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

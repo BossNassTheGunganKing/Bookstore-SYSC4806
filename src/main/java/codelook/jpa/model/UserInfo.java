@@ -69,4 +69,7 @@ public class UserInfo {
     }
 
 
+    public String getRoleWithPrefix() {
+        return "ROLE_" + role.name();
+    }
 }
