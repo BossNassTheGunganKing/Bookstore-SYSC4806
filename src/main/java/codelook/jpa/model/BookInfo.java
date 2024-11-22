@@ -22,7 +22,7 @@ public class BookInfo {
     private UserInfo publisher;
     private int pageCount;
     private String genre;
-    //private BufferedImage picture;
+    private String coverImage;
 
     public BookInfo(String name, List<AuthorInfo> authorship, String description, UserInfo publisher, int pageCount, String genre) {
         this.name = name;
@@ -31,6 +31,7 @@ public class BookInfo {
         this.publisher = publisher;
         this.pageCount = pageCount;
         this.genre = genre;
+        this.coverImage = null;
     }
 
     public BookInfo() {
@@ -89,11 +90,11 @@ public class BookInfo {
         this.genre = genre;
     }
 
-//    public BufferedImage getPicture() {
-//        return picture;
-//    }
-//
-//    public void setPicture(BufferedImage picture) {
-//        this.picture = picture;
-//    }
+    public String coverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
 }
