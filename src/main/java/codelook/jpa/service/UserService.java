@@ -1,11 +1,19 @@
 package codelook.jpa.service;
 
+import codelook.jpa.model.UserRole;
 import codelook.jpa.repository.UserInfoRepo;
+import codelook.jpa.request.ErrorResponse;
 import codelook.jpa.request.UserRegistrationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import codelook.jpa.model.UserInfo;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.*;
 
 import static java.lang.String.valueOf;
 

@@ -23,7 +23,14 @@ public class OrderItem {
     public OrderItem(ListingInfo listing, int quantity) {
         this.quantity = quantity;
         this.listing = listing;
-        this.priceAtPurchase = new BigDecimal(0);
+        // Use discountedPrice if available, otherwise originalPrice
+        this.priceAtPurchase = listing.getDiscountedPrice() != null
+                ? listing.getDiscountedPrice()
+                : listing.getOriginalPrice();
+    }
+
+    public BigDecimal getTotalPrice() {
+        return priceAtPurchase.multiply(new BigDecimal(quantity));
     }
 
     public void setId(Long id) {

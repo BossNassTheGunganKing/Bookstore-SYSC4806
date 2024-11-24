@@ -1,6 +1,7 @@
 package codelook.jpa.controller;
 
 import codelook.jpa.model.UserRole;
+import codelook.jpa.request.ErrorResponse;
 import codelook.jpa.request.UserRegistrationRequest;
 import codelook.jpa.service.UserService;
 import codelook.jpa.utils.ErrorMapper;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import static java.lang.String.valueOf;
 
-@Validated
 @RestController
 @RequestMapping("/users")
 public class UserController {

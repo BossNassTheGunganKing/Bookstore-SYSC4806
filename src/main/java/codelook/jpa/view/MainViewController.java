@@ -13,15 +13,10 @@ import codelook.jpa.repository.ListingInfoRepo;
 
 import codelook.jpa.repository.UserInfoRepo;
 import codelook.jpa.request.UserRegistrationRequest;
-import codelook.jpa.service.ImageService;
 import codelook.jpa.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @org.springframework.stereotype.Controller
@@ -52,9 +47,6 @@ public class MainViewController {
     UserInfoRepo userInfoRepo;
     @Autowired
     AvailableGenresRepo availableGenresRepo;
-    @Autowired
-    ImageService imageService;
-
 
     private final RestTemplate restTemplate;
 
@@ -67,7 +59,6 @@ public class MainViewController {
     public MainViewController(RestTemplate restTemplate, @Value("${api.base.url}") String baseUrl) {
         this.restTemplate = restTemplate;
         BASE_URL = baseUrl;
-
     }
 
     @GetMapping("/allBooks")
@@ -154,7 +145,6 @@ public class MainViewController {
     @GetMapping("/newBook")
     public String newBookPage(Model model) {
         model.addAttribute("authors", authorInfoRepo.findAll());
-        model.addAttribute("publishers", userInfoRepo.findAll().stream().filter(userInfo -> userInfo.getRole() == UserRole.PUBLISHER).toList());
         return "newBook";
     }
 
@@ -246,5 +236,67 @@ public class MainViewController {
         return "genre";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/account")
+    public String viewAccount(Model model) {
+        UserInfo currentUser = userService.getCurrentUserInfo();
+        model.addAttribute("user", currentUser);
+        return "account";
+    }
+
+
+    @GetMapping("/account/edit")
+    public String editAccount(Model model) {
+        try {
+            UserInfo currentUser = userService.getCurrentUser();
+            model.addAttribute("user", currentUser);
+            return "editAccount";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to load account details.");
+            return "account";
+        }
+    }
+
+    @PostMapping("/account/edit")
+    public String updateAccount(
+            @RequestParam String username,
+            @RequestParam String password,
+            @RequestParam String email,
+            Model model
+    ) {
+        try {
+            UserInfo currentUser = userService.getCurrentUser();
+
+            // Update the current user's information
+            userService.updateUser(currentUser, username, password, email);
+
+            model.addAttribute("success", "Account updated successfully.");
+            return "redirect:/account";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to update account. " + e.getMessage());
+            return "editAccount";
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logoutPage() {
+        return "logout"; // Return the logout confirmation page
+    }
+
+    @GetMapping("/403")
+    public String permissionDenied() {
+        return "403"; // This maps to the 403.html template
+    }
+
+    @GetMapping("/admin/orders")
+    public String viewAllOrders(Model model) {
+        List<OrderInfo> orders = orderInfoRepo.findAll();
+        model.addAttribute("orders", orders);
+        return "allOrders";
+    }
 
 }

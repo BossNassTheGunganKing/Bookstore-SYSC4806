@@ -23,6 +23,8 @@ public class StaticData {
 
     public static final UserInfo someUser = new UserInfo("someGuy", "userpwd","useremail@email.com", UserRole.DEFAULT);
 
+    public static final UserInfo someUser2 = new UserInfo("someGuy2", "userpwd","user2email@email.com", UserRole.DEFAULT);
+
     public static final BookInfo bookInfo1 = new BookInfo("1984", List.of(authorInfo1), "Corruption", somePublisher, 222, "Dystopian");
     public static final BookInfo bookInfo2 = new BookInfo("Of Mice and Men", List.of(authorInfo1, authorInfo2), "Sad", somePublisher, 333, "Coming of Age");
     public static final BookInfo bookInfo3 = new BookInfo("Twilight", List.of(authorInfo1), "Love", anotherPublisher, 444, "Vampires");

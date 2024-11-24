@@ -4,6 +4,7 @@ import codelook.jpa.model.UserInfo;
 import codelook.jpa.repository.UserInfoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,11 +24,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo user = userInfoRepo.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(),
-                AuthorityUtils.createAuthorityList(user.getRole().name()));
+        System.out.println("Loaded user: " + user.getUsername() + ", Role: " + user.getRoleWithPrefix());
+        return User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .authorities(user.getRoleWithPrefix())
+                .build();
     }
 
 }

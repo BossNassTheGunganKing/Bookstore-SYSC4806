@@ -10,7 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "codelook.jpa")
 public class JpaApplication {
     public static void main(String[] args) {
         SpringApplication.run(JpaApplication.class, args);
@@ -27,6 +27,9 @@ public class JpaApplication {
             UserInfo publisher1 = userService.registerUser(new UserRegistrationRequest(StaticData.somePublisher.getUsername(),StaticData.somePublisher.getPassword(),StaticData.somePublisher.getEmail(), StaticData.somePublisher.getRole()));
             UserInfo publisher2 = userService.registerUser(new UserRegistrationRequest(StaticData.anotherPublisher.getUsername(),StaticData.anotherPublisher.getPassword(),StaticData.anotherPublisher.getEmail(), StaticData.anotherPublisher.getRole()));
 
+            UserInfo user1 = userService.registerUser(StaticData.someUser.getUsername(),StaticData.someUser.getPassword(),StaticData.someUser.getEmail(), StaticData.someUser.getRole());
+            UserInfo user2 = userService.registerUser(StaticData.someUser2.getUsername(),StaticData.someUser2.getPassword(),StaticData.someUser2.getEmail(), StaticData.someUser2.getRole());
+
             // saving a few books
             BookInfo bookInfo1 = StaticData.bookInfo1;
             BookInfo bookInfo2 = StaticData.bookInfo2;
@@ -40,6 +43,9 @@ public class JpaApplication {
 
             authorInfoRepo.save(authorInfo1);
             authorInfoRepo.save(authorInfo2);
+
+            userInfoRepo.save(user1);
+            userInfoRepo.save(user2);
 
             bookInfo1.setPublisher(publisher1);
             bookInfo2.setPublisher(publisher1);

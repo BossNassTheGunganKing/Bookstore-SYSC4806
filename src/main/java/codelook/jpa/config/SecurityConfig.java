@@ -1,12 +1,12 @@
 package codelook.jpa.config;
 
+import codelook.jpa.repository.UserInfoRepo;
+import codelook.jpa.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,25 +17,32 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll() // Allow all requests by default
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/allBooks", "/allListings", "/account", "/account/edit", "/orders", "allGenres").hasAnyAuthority("ROLE_DEFAULT", "ROLE_PUBLISHER", "ROLE_ADMIN")
+                        .requestMatchers("/newBook", "/newListing", "/authors").hasAnyAuthority("ROLE_PUBLISHER", "ROLE_ADMIN")
+                        .requestMatchers("/users/view", "/allOrders", "/admin/orders").hasAuthority("ROLE_ADMIN")
+                        .anyRequest().authenticated()
                 )
-                .formLogin(form -> form // Enable form-based login
-                        .loginPage("/login") // Custom login page
-                        .permitAll() // Allow everyone to access the login page
-                )
-                .logout(logout -> logout // Enable logout functionality
-                        .logoutUrl("/logout")
+                .formLogin(form -> form
+                        .loginPage("/login")
                         .permitAll()
                 )
-                .csrf(AbstractHttpConfigurer::disable); // Disable CSRF if working with APIs
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout") // Redirect to login with a logout message
+                        .permitAll()
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/403") // Redirect to the custom "Permission Denied" page
+                );
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

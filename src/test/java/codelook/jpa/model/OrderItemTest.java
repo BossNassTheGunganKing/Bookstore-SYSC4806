@@ -22,10 +22,8 @@ class OrderItemTest {
 
     @Test
     void getAndSetPurchasePrice(){
-        assertEquals(BigDecimal.valueOf(0), orderItem.getPriceAtPurchase());
+        assertEquals(BigDecimal.valueOf(19.99), orderItem.getPriceAtPurchase());
         orderItem.setPriceAtPurchase(BigDecimal.valueOf(1.0));
         assertEquals(BigDecimal.valueOf(1.0), orderItem.getPriceAtPurchase());
     }
-
-
 }
