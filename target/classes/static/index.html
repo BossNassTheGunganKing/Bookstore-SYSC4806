@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <title>Bookstore Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -20,7 +20,8 @@
 
     <!-- Links to other actions -->
     <div class="list-group">
-        <a href="/authors" class="list-group-item list-group-item-action">
+        <a href="/authors" class="list-group-item list-group-item-action"
+            sec:authorize="hasAnyRole('ROLE_PUBLISHER', 'ROLE_ADMIN')">
             Add New Author
         </a>
         <a href="/newListing" class="list-group-item list-group-item-action">
@@ -28,6 +29,9 @@
         </a>
         <a href="/newBook" class="list-group-item list-group-item-action">
             Add New Book
+        </a>
+        <a href="/cart/add" class="list-group-item list-group-item-action">
+            Add Item to Cart
         </a>
     </div>
 
@@ -37,6 +41,9 @@
 
     <h2 class="my-4">View Listings</h2>
     <a href="/allListings" class="btn btn-primary">View All Listings</a>
+
+    <h2 class="my-4">View Users</h2>
+    <a href="/users/view" class="btn btn-primary" sec:authorize="hasRole('ROLE_DEFAULT')">View All Users</a>
 
 </div>
 </body>

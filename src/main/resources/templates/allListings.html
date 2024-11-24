@@ -16,12 +16,19 @@
     <body>
     <div id="navbar"></div>
         <h1>Current Listings</h1>
+
+        <!-- Error Message -->
+        <div th:if="${error}" class="alert alert-danger text-center">
+            <span th:text="${error}"></span>
+        </div>
+
         <table class="table">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">Book ISBN</th>
                 <th scope="col">Book Title</th>
                 <th scope="col">Publisher</th>
+                <th scope="col">Add to Cart</th>
             </tr>
             </thead>
             <tbody>
@@ -31,6 +38,13 @@
                     <a th:href="@{/listing/{id}(id=${listing.id})}" th:text="${listing.name}"></a>
                 </td>
                 <td th:text="${listing.book.publisher.username}"></td>
+                <td>
+                    <form th:action="@{/cart/add}" method="post">
+                        <input type="hidden" name="listingId" th:value="${listing.id}" />
+                        <input type="number" name="quantity" min="1" max="${listing.remainingCopies}" value="1" />
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
