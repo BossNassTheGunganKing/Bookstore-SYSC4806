@@ -1,6 +1,5 @@
 package codelook.jpa.view;
 
-import codelook.jpa.StaticData;
 import codelook.jpa.controller.UserController;
 import codelook.jpa.model.*;
 import codelook.jpa.model.*;
@@ -13,12 +12,15 @@ import codelook.jpa.repository.ListingInfoRepo;
 
 import codelook.jpa.repository.UserInfoRepo;
 import codelook.jpa.request.UserRegistrationRequest;
+import codelook.jpa.service.ImageService;
 import codelook.jpa.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.Validator;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +34,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @org.springframework.stereotype.Controller
@@ -47,6 +48,8 @@ public class MainViewController {
     UserInfoRepo userInfoRepo;
     @Autowired
     AvailableGenresRepo availableGenresRepo;
+    @Autowired
+    OrderInfoRepo orderInfoRepo;
 
     private final RestTemplate restTemplate;
 
@@ -55,6 +58,8 @@ public class MainViewController {
     private UserService userService;
     @Autowired
     private UserController userController;
+    @Autowired
+    private ImageService imageService;
 
     public MainViewController(RestTemplate restTemplate, @Value("${api.base.url}") String baseUrl) {
         this.restTemplate = restTemplate;
@@ -145,6 +150,7 @@ public class MainViewController {
     @GetMapping("/newBook")
     public String newBookPage(Model model) {
         model.addAttribute("authors", authorInfoRepo.findAll());
+        model.addAttribute("publishers", userInfoRepo.findAllByRole(UserRole.PUBLISHER));
         return "newBook";
     }
 
@@ -243,7 +249,7 @@ public class MainViewController {
 
     @GetMapping("/account")
     public String viewAccount(Model model) {
-        UserInfo currentUser = userService.getCurrentUserInfo();
+        UserInfo currentUser = userService.getCurrentUser();
         model.addAttribute("user", currentUser);
         return "account";
     }
@@ -272,7 +278,7 @@ public class MainViewController {
             UserInfo currentUser = userService.getCurrentUser();
 
             // Update the current user's information
-            userService.updateUser(currentUser, username, password, email);
+            userService.updateAccount(currentUser.getId(), username, password, email);
 
             model.addAttribute("success", "Account updated successfully.");
             return "redirect:/account";

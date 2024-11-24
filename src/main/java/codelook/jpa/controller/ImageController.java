@@ -1,16 +1,12 @@
 package codelook.jpa.controller;
 
-import codelook.jpa.model.BookInfo;
-import codelook.jpa.repository.BookInfoRepo;
 import codelook.jpa.service.ImageService;
 import codelook.jpa.utils.ErrorMapper;
-import jdk.jfr.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -18,11 +14,11 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/images")
 public class ImageController {
-    private ImageService imageService;
+    private final ImageService imageService;
 
     @Autowired
-    public ImageController(ImageService imageService, ErrorMapper errorMapper) {
-        this.imageService = new ImageService();
+    public ImageController(ImageService imageService) {
+        this.imageService = imageService;
     }
 
     // Endpoint to fetch the image for a book

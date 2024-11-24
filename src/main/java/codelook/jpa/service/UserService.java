@@ -1,8 +1,6 @@
 package codelook.jpa.service;
 
-import codelook.jpa.model.UserRole;
 import codelook.jpa.repository.UserInfoRepo;
-import codelook.jpa.request.ErrorResponse;
 import codelook.jpa.request.UserRegistrationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,12 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import codelook.jpa.model.UserInfo;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.*;
-
-import static java.lang.String.valueOf;
 
 @Service
 public class UserService {
@@ -39,6 +33,42 @@ public class UserService {
         UserInfo newUser = new UserInfo(userRegistrationRequest.username(), encodedPassword, userRegistrationRequest.password(), userRegistrationRequest.role());
         System.out.println("Saving user: " + newUser);
         return userInfoRepo.save(newUser);
+    }
+
+    public UserInfo getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Optional<UserInfo> user = userInfoRepo.findByUsername(username);
+            return user.orElseThrow(() -> new RuntimeException("User not found"));
+        }
+        throw new RuntimeException("No authenticated user found");
+    }
+
+    public void updateAccount(Long userId, String newUsername, String newPassword, String newEmail) {
+        UserInfo user = userInfoRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Update username if provided
+        if (newUsername != null && !newUsername.isBlank()) {
+            if (!newUsername.equals(user.getUsername()) && usernameExists(newUsername)) {
+                throw new RuntimeException("Username already exists");
+            }
+            user.setUsername(newUsername);
+        }
+
+        // Update password if provided
+        if (newPassword != null && !newPassword.isBlank()) {
+            String encodedPassword = passwordEncoder.encode(newPassword);
+            user.setPasswordHash(encodedPassword);
+        }
+
+        // Update email if provided
+        if (newEmail != null && !newEmail.isBlank()) {
+            user.setEmail(newEmail);
+        }
+
+        userInfoRepo.save(user);
     }
 
 }

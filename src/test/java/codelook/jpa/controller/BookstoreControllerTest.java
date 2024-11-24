@@ -54,7 +54,7 @@ public class BookstoreControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/books").with(csrf())
                         .param("name", "Sample Book")
                         .param("description", "A sample book description")
-                        .param("publisher", "Sample Publisher")
+                        .param("publisher", "PeopleParty")
                         .param("pageCount", "200")
                         .param("genre", "Fiction")
                         .param("authorIds", "1")

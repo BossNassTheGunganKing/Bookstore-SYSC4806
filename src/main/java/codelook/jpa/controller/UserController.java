@@ -1,21 +1,15 @@
 package codelook.jpa.controller;
 
 import codelook.jpa.model.UserRole;
-import codelook.jpa.request.ErrorResponse;
 import codelook.jpa.request.UserRegistrationRequest;
 import codelook.jpa.service.UserService;
 import codelook.jpa.utils.ErrorMapper;
 import codelook.jpa.validation.CurrentUserHasRole;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.json.EnumTranslator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import static java.lang.String.valueOf;
 
 @RestController
 @RequestMapping("/users")

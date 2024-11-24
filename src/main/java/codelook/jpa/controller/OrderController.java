@@ -37,6 +37,7 @@ public class OrderController {
             return "account";
         }
     }
+
     @GetMapping("/orders/{id}")
     public String viewOrderDetails(@PathVariable Long id, Model model) {
         OrderInfo order = orderInfoRepo.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
