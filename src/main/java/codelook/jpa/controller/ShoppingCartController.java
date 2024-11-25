@@ -1,7 +1,10 @@
 package codelook.jpa.controller;
 
+import codelook.jpa.commands.PlaceOrderCommand;
+import codelook.jpa.commands.PlaceOrderCommandHandler;
 import codelook.jpa.model.OrderInfo;
 import codelook.jpa.model.OrderStatus;
+import codelook.jpa.model.UserInfo;
 import codelook.jpa.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,9 @@ public class ShoppingCartController {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
+
+    @Autowired
+    private PlaceOrderCommandHandler placeOrderCommandHandler;
 
     /**
      * View the user's shopping cart.
@@ -132,13 +138,25 @@ public class ShoppingCartController {
                              @RequestParam String cardCVC,
                              Model model) {
         try {
-            OrderInfo order = shoppingCartService.placeOrder(cardNumber, cardExpiry, cardCVC);
-            model.addAttribute("order", order); // Add the order object to the model
-            return "orderConfirmation";
+            // Retrieve the current user
+            UserInfo currentUser = shoppingCartService.getCurrentUser();
+
+            // Create the PlaceOrderCommand
+            PlaceOrderCommand command = new PlaceOrderCommand(
+                    currentUser.getId(),
+                    cardNumber,
+                    cardExpiry,
+                    cardCVC
+            );
+
+            // Pass the command to the handler
+            placeOrderCommandHandler.handle(command);
+
+            return "redirect:/orders"; // Redirect to orders page after successful placement
         } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
+            model.addAttribute("error", "Failed to place order: " + e.getMessage());
             model.addAttribute("order", shoppingCartService.getCart());
-            return "checkoutConfirm";
+            return "checkoutConfirm"; // Reload the checkout confirmation page with an error
         }
     }
 }

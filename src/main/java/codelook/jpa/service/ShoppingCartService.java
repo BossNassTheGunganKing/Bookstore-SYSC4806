@@ -202,4 +202,13 @@ public class ShoppingCartService {
         cart.checkout();
         return orderInfoRepo.save(cart);
     }
+
+    public OrderInfo getCartByUserId(Long userId) {
+        UserInfo user = userInfoRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        return orderInfoRepo.findByUserAndOrderStatus(user, OrderStatus.IN_CART)
+                .orElseThrow(() -> new RuntimeException("No active cart found for user."));
+    }
+
 }

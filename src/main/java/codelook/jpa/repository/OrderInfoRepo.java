@@ -14,4 +14,7 @@ public interface OrderInfoRepo extends JpaRepository <OrderInfo, Long>{
     Optional<OrderInfo> findByUserAndOrderStatus(UserInfo currentUser, OrderStatus orderStatus);
 
     List<OrderInfo> findByUser(UserInfo currentUser);
+
+    List<OrderInfo> findByUserAndOrderStatusNot(UserInfo user, OrderStatus status);
+
 }
