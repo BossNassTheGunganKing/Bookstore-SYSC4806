@@ -17,7 +17,7 @@
 <div id="navbar"></div>
 <h1>Add New Book</h1>
 
-<form th:action="@{/books}" method="post">
+<form th:action="@{/books}" method="post" enctype="multipart/form-data">
     <label for="name">Title:</label>
     <input type="text" id="name" name="name" required>
 
@@ -25,7 +25,9 @@
     <textarea id="description" name="description"></textarea>
 
     <label for="publisher">Publisher:</label>
-    <input type="text" id="publisher" name="publisher">
+    <select id="publisher" name="publisher" required> <!-- "multiple" allows multi-select -->
+        <option th:each="publisher : ${publishers}" th:value="${publisher.username}" th:text="${publisher.username}"></option>
+    </select>
 
     <label for="pageCount">Page Count:</label>
     <input type="number" id="pageCount" name="pageCount">
@@ -33,10 +35,15 @@
     <label for="genre">Genre:</label>
     <input type="text" id="genre" name="genre">
 
+
+
     <label for="authorSelect">Select Authors:</label>
     <select id="authorSelect" name="authorIds" multiple required> <!-- "multiple" allows multi-select -->
         <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}"></option>
     </select>
+
+    <label for="coverImage">Book Cover Image:</label>
+    <input type="file" id="coverImage" name="coverImage" accept="image/*">
 
     <button type="submit">Add Book</button>
 </form>

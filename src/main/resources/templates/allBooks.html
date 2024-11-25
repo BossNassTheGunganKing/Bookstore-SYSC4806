@@ -20,12 +20,16 @@
 <table class="table">
     <thead class="thead-dark">
     <tr>
+        <th scope="col">Cover Image</th>
         <th scope="col">Book Title</th>
         <th scope="col">Author(s)</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="book : ${books}">
+        <td><img th:src="${book.coverImage != null ? '/images/' + book.coverImage : '/images/notfound.jpg'}"
+                 alt="Book Cover"
+                 style="width: 100px; height: auto;"></td>
         <td th:text="${book.name}"></td>
         <td th:text="${book.authorship[0].name}"></td>
     </tr>

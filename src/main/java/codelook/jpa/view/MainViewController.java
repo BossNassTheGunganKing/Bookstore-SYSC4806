@@ -1,6 +1,5 @@
 package codelook.jpa.view;
 
-import codelook.jpa.StaticData;
 import codelook.jpa.controller.UserController;
 import codelook.jpa.model.*;
 import codelook.jpa.model.*;
@@ -13,13 +12,15 @@ import codelook.jpa.repository.ListingInfoRepo;
 
 import codelook.jpa.repository.UserInfoRepo;
 import codelook.jpa.request.UserRegistrationRequest;
+import codelook.jpa.service.ImageService;
 import codelook.jpa.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +29,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @org.springframework.stereotype.Controller
@@ -50,12 +51,6 @@ public class MainViewController {
     AvailableGenresRepo availableGenresRepo;
     @Autowired
     OrderInfoRepo orderInfoRepo;
-    @Autowired
-    OrderItemRepo orderItemRepo;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-
 
     private final RestTemplate restTemplate;
 
@@ -64,6 +59,8 @@ public class MainViewController {
     private UserService userService;
     @Autowired
     private UserController userController;
+    @Autowired
+    private ImageService imageService;
 
     public MainViewController(RestTemplate restTemplate, @Value("${api.base.url}") String baseUrl) {
         this.restTemplate = restTemplate;
@@ -154,6 +151,7 @@ public class MainViewController {
     @GetMapping("/newBook")
     public String newBookPage(Model model) {
         model.addAttribute("authors", authorInfoRepo.findAll());
+        model.addAttribute("publishers", userInfoRepo.findAllByRole(UserRole.PUBLISHER));
         return "newBook";
     }
 
@@ -163,10 +161,13 @@ public class MainViewController {
                           @RequestParam String description,
                           @RequestParam String publisher,
                           @RequestParam int pageCount,
-                          @RequestParam String genre
+                          @RequestParam String genre,
+                          @RequestParam(required = false, value = "coverImage") MultipartFile coverImage
                           ) {  // List of author IDs from the form
-        UserInfo user = StaticData.somePublisher;
-        userInfoRepo.save(user);
+        UserInfo user = userInfoRepo.findByUsername(publisher).orElse(null);
+        if (user == null) {
+            return "redirect:/errorPage";
+        }
 
         boolean newGenre = true;
         List<AvailableGenres> availableGenres = availableGenresRepo.findAll();
@@ -185,6 +186,19 @@ public class MainViewController {
         List<AuthorInfo> authors = authorInfoRepo.findAllById(authorIds);
         // Create and save the BookInfo with the selected authors
         BookInfo book = new BookInfo(name, authors, description, user, pageCount, genre);
+        String imageName;
+        try {
+            if(coverImage != null){
+                imageName = imageService.saveImage("images", coverImage);
+                book.setCoverImage(imageName);
+                System.out.println("Cover Image Added: " + imageName);
+            }else {
+                System.out.println("Couldn't find cover image");
+            }
+        }catch (Exception e){
+            System.out.println(e);
+            return "redirect:/errorPage";
+        }
         bookInfoRepo.save(book);
 
         return "redirect:/allBooks";  // Redirect to the all books page after saving
@@ -193,13 +207,18 @@ public class MainViewController {
     @GetMapping("/users/view")
     public String usersPage(Model model) {
         model.addAttribute("users", userInfoRepo.findAll());
-        model.addAttribute("userRegistrationRequest", new UserRegistrationRequest("", "", "", "DEFAULT"));
+        model.addAttribute("userRegistrationRequest", new UserRegistrationRequest("", "", "", UserRole.DEFAULT));
         return "allUsers";
     }
 
     @PostMapping("/users/add")
-    public String registerUser(@ModelAttribute UserRegistrationRequest registrationRequest) {
-        userController.createUser(registrationRequest);
+    public String registerUser(@ModelAttribute @Valid UserRegistrationRequest registrationRequest) {
+        System.out.println("Registration Request: \n" + registrationRequest.username() + " " + registrationRequest.password() + " " + registrationRequest.role() + " " + registrationRequest.email());
+        ResponseEntity<?> response = restTemplate.exchange(
+                BASE_URL + "/users",
+                HttpMethod.POST,
+                new HttpEntity<>(registrationRequest),
+                Void.class);
         return "redirect:/users/view";
     }
 
@@ -231,7 +250,7 @@ public class MainViewController {
 
     @GetMapping("/account")
     public String viewAccount(Model model) {
-        UserInfo currentUser = userService.getCurrentUserInfo();
+        UserInfo currentUser = userService.getCurrentUser();
         model.addAttribute("user", currentUser);
         return "account";
     }
@@ -282,7 +301,7 @@ public class MainViewController {
             UserInfo currentUser = userService.getCurrentUser();
 
             // Update the current user's information
-            userService.updateUser(currentUser, username, password, email);
+            userService.updateAccount(currentUser.getId(), username, password, email);
 
             model.addAttribute("success", "Account updated successfully.");
             return "redirect:/account";
