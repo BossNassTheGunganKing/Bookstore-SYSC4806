@@ -1,51 +1,38 @@
 package codelook.jpa.controller;
 
-import codelook.jpa.model.UserInfo;
 import codelook.jpa.model.UserRole;
-import codelook.jpa.request.ErrorResponse;
 import codelook.jpa.request.UserRegistrationRequest;
 import codelook.jpa.service.UserService;
+import codelook.jpa.utils.ErrorMapper;
+import codelook.jpa.validation.CurrentUserHasRole;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.json.EnumTranslator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import static java.lang.String.valueOf;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
-    private final EnumTranslator enumTranslator;
+    private final ErrorMapper errorMapper;
 
     @Autowired
-    public UserController(UserService userService, EnumTranslator enumTranslator) {
+    public UserController(UserService userService, ErrorMapper errorMapper) {
         this.userService = userService;
-        this.enumTranslator = enumTranslator;
+        this.errorMapper = errorMapper;
     }
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody UserRegistrationRequest userRequest) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        UserRole loggedInRole = authentication.getAuthorities().stream()
-                .findFirst()
-                .map(grantedAuthority -> enumTranslator.fromText(UserRole.class, grantedAuthority.getAuthority())).orElse(UserRole.DEFAULT);
-        ErrorResponse errorResponse = userService.validateUserRegistration(userRequest, loggedInRole);
-        if (errorResponse != null) {
-            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-        }else{
-            UserRole userRole = enumTranslator.fromText(UserRole.class,userRequest.role());
-            userService.registerUser(userRequest.username(),userRequest.password(),userRequest.email(), userRole);
-            return new ResponseEntity<>("Successfully registered new user",HttpStatus.CREATED);
+    @CurrentUserHasRole(userRoles = {UserRole.ADMIN})
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserRegistrationRequest userRequest) {
+        try{
+            return new ResponseEntity<>(this.userService.registerUser(userRequest), HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(this.errorMapper.createErrorMap(e), HttpStatus.BAD_REQUEST);
         }
     }
+
 
 }
 
