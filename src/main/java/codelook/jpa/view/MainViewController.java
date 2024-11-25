@@ -263,7 +263,7 @@ public class MainViewController {
         List<ListingInfo> books = listingInfoRepo.findByNameContainingIgnoreCase(keyword);
         model.addAttribute("books", books);
         model.addAttribute("keyword", keyword);
-        if (books.isEmpty()) {
+        if (books.isEmpty() || keyword.isEmpty()) {
             model.addAttribute("message", "no such results...");
         }
 
