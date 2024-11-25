@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -253,6 +254,28 @@ public class MainViewController {
         model.addAttribute("user", currentUser);
         return "account";
     }
+
+    //SearchBar query REQUESTS
+
+    @GetMapping("/search-results")
+    public String searchBooks(@RequestParam(defaultValue = "") String keyword, Model model) {
+
+        List<ListingInfo> books = listingInfoRepo.findByNameContainingIgnoreCase(keyword);
+        model.addAttribute("books", books);
+        model.addAttribute("keyword", keyword);
+        if (books.isEmpty() || keyword.isEmpty()) {
+            model.addAttribute("message", "no such results...");
+        }
+
+        return "search-results";
+    }
+//    public String searchResults(@RequestParam(defaultValue = "") String keyword, Model model) {
+//        List<ListingInfo> books = listingInfoRepo.findByNameContainingIgnoreCase(keyword);
+//        model.addAttribute("books", books);
+//        model.addAttribute("keyword", keyword);
+//        return "search-results";
+//    }
+
 
 
     @GetMapping("/account/edit")

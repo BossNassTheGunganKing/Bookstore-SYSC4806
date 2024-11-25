@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            $('#navbar').load('navbar.html');
+            window.scrollTo(-20,0);
+        });
+    </script>
+    <style>
+        .search-bar {
+            width: 80%;
+
+        }
+    </style>
+
+</head>
+<body>
+<div id="navbar"></div>
+<!--<div class="container">-->
+<!--    <h2 class="mx-auto justify-content-center">Search Results</h2>-->
+<!--    <form action="/search-results" method="get" class="form-inline d-flex justify-content-center mt-3 w-100">-->
+<!--        <div class="form-group mr-2">-->
+<!--            <input class="form-control" name="keyword" placeholder="Search books..." th:value="${keyword}">-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary">Search</button>-->
+<!--    </form>-->
+<!--</div>-->
+<div class="list-group">
+    <div th:if="${books.isEmpty()}" class="mx-auto justify-content-center">
+        <h1 class="my-4" th:text="${message}"></h1>
+    </div>
+    <div class="" th:unless="${books.isEmpty()}">
+            <div th:each="book : ${books}">
+                <a th:href="@{|/listing/${book.id}|}" class="list-group-item list-group-item-action">
+                    <span th:text="${book.name}"></span>
+                </a>
+            </div>
+    </div>
+</div>
+</body>
+</html>
