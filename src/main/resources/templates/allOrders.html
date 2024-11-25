@@ -55,12 +55,21 @@
                 </div>
             </li>
 
+            <form th:object="${book}" action="/search-results" method="get" class="form-inline mx-auto">
+                <div class="input-group w-100">
+                    <input type="text" class="form-control" name="keyword" placeholder="Search for books..." th:value="${keyword}">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+
             <!-- Logout button -->
-            <li class="nav-item" sec:authorize="isAuthenticated()">
+            <li class="nav-item ml-auto" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
 
-            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                 <a class="nav-link" href="/admin/orders">View All Orders</a>
             </li>
 
