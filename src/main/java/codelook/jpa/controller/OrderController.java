@@ -1,6 +1,7 @@
 package codelook.jpa.controller;
 
 import codelook.jpa.model.OrderInfo;
+import codelook.jpa.model.OrderStatus;
 import codelook.jpa.model.UserInfo;
 import codelook.jpa.repository.OrderInfoRepo;
 import codelook.jpa.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class OrderController {
@@ -29,7 +31,12 @@ public class OrderController {
     public String viewOrders(Model model) {
         try {
             UserInfo currentUser = userService.getCurrentUser(); // Get the logged-in user
-            List<OrderInfo> orders = orderInfoRepo.findByUser(currentUser);
+
+            // Filter orders to exclude those with status "IN_CART"
+            List<OrderInfo> orders = orderInfoRepo.findByUser(currentUser).stream()
+                    .filter(order -> order.getOrderStatus() != OrderStatus.IN_CART)
+                    .collect(Collectors.toList());
+
             model.addAttribute("orders", orders);
             return "orders";
         } catch (Exception e) {
