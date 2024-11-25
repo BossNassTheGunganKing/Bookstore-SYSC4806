@@ -240,6 +240,7 @@ public class MainViewController {
 
     @GetMapping("/search-results")
     public String searchBooks(@RequestParam(defaultValue = "") String keyword, Model model) {
+
         List<ListingInfo> books = listingInfoRepo.findByNameContainingIgnoreCase(keyword);
         model.addAttribute("books", books);
         model.addAttribute("keyword", keyword);
@@ -249,6 +250,12 @@ public class MainViewController {
 
         return "search-results";
     }
+//    public String searchResults(@RequestParam(defaultValue = "") String keyword, Model model) {
+//        List<ListingInfo> books = listingInfoRepo.findByNameContainingIgnoreCase(keyword);
+//        model.addAttribute("books", books);
+//        model.addAttribute("keyword", keyword);
+//        return "search-results";
+//    }
 
 
 
