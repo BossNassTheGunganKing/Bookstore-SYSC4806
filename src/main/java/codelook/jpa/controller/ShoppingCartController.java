@@ -4,9 +4,11 @@ import codelook.jpa.commands.PlaceOrderCommand;
 import codelook.jpa.commands.PlaceOrderCommandHandler;
 import codelook.jpa.model.OrderInfo;
 import codelook.jpa.model.OrderStatus;
+import codelook.jpa.repository.OrderEventRepository;
 import codelook.jpa.model.UserInfo;
 import codelook.jpa.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,15 @@ public class ShoppingCartController {
 
     @Autowired
     private PlaceOrderCommandHandler placeOrderCommandHandler;
+
+    @Autowired
+    private OrderEventRepository orderEventRepository;
+
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    public ShoppingCartController(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     /**
      * View the user's shopping cart.
@@ -151,6 +162,7 @@ public class ShoppingCartController {
 
             // Pass the command to the handler
             placeOrderCommandHandler.handle(command);
+            kafkaTemplate.send("orders", "re");
 
             return "redirect:/orders"; // Redirect to orders page after successful placement
         } catch (RuntimeException e) {

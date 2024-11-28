@@ -8,17 +8,20 @@ import codelook.jpa.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.core.KafkaTemplate;
 
-@SpringBootApplication(scanBasePackages = "codelook.jpa")
+@SpringBootApplication(scanBasePackages = "codelook.jpa", exclude = KafkaAutoConfiguration.class)
 public class JpaApplication {
     public static void main(String[] args) {
         SpringApplication.run(JpaApplication.class, args);
     }
 
     @Bean
-    public CommandLineRunner demo(BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo, UserInfoRepo userInfoRepo, OrderInfoRepo orderInfoRepo, OrderItemRepo orderItemRepo, UserService userService, AvailableGenresRepo availableGenresRepo) {
+    public CommandLineRunner demo(KafkaTemplate<String,String> kafkaTemplate , BookInfoRepo bookInfoRepo, AuthorInfoRepo authorInfoRepo, ListingInfoRepo listingInfoRepo, UserInfoRepo userInfoRepo, OrderInfoRepo orderInfoRepo, OrderItemRepo orderItemRepo, UserService userService, AvailableGenresRepo availableGenresRepo) {
         return (args) -> {
+            kafkaTemplate.send("orders", "hello Kafka");
             AuthorInfo authorInfo1 = StaticData.authorInfo1;
             AuthorInfo authorInfo2 = StaticData.authorInfo2;
 
@@ -65,7 +68,6 @@ public class JpaApplication {
             }
             //bookInfoRepo.saveAll(StaticData.manyBooks);
             listingInfoRepo.saveAll(StaticData.manyListings);
-
 
         };
     }
