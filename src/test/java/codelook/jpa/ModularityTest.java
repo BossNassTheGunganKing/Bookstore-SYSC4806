@@ -1,10 +1,17 @@
 package codelook.jpa;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.modulith.ApplicationModule;
 import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.docs.Documenter;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class ModularityTest {
+    private ApplicationModules modules = ApplicationModules.of(JpaApplication.class);
+
     @Test
     void writeDocumentationSnippets() {
 

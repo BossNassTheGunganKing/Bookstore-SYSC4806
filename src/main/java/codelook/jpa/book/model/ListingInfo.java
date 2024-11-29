@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-public class ListingInfo {
+class ListingInfo {
     @Id
     @GeneratedValue
     private Long id;

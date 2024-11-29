@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class BookInfo {
+class BookInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

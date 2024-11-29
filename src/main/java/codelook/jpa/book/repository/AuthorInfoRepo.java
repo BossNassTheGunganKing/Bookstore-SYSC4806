@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AuthorInfoRepo extends JpaRepository<AuthorInfo, Long> {
+interface AuthorInfoRepo extends JpaRepository<AuthorInfo, Long> {
     List<AuthorInfo> findByName(String name);
 }
