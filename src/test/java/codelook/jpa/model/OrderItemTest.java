@@ -1,7 +1,10 @@
 package codelook.jpa.model;
 
 import codelook.jpa.StaticData;
-import codelook.jpa.order.model.OrderItem;
+import codelook.jpa.user.*;
+import codelook.jpa.order.*;
+import codelook.jpa.book.*;
+import codelook.jpa.image.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

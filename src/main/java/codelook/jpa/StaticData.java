@@ -1,9 +1,9 @@
 package codelook.jpa;
 
-import codelook.jpa.user.model.*;
-import codelook.jpa.book.model.*;
-import codelook.jpa.order.model.*;
-import codelook.jpa.user.request.UserRegistrationRequest;
+import codelook.jpa.user.*;
+import codelook.jpa.order.*;
+import codelook.jpa.book.*;
+import codelook.jpa.image.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,5 +1,5 @@
 @ApplicationModule(
-        allowedDependencies = "book"
+        allowedDependencies = {"book", "user",  "order",  "image",  "view"}
 )
 package codelook.jpa.book;
 

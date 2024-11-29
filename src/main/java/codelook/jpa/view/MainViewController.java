@@ -1,21 +1,10 @@
 package codelook.jpa.view;
 
-import codelook.jpa.user.controller.UserController;
-import codelook.jpa.user.model.*;
-import codelook.jpa.order.model.*;
-import codelook.jpa.book.model.*;
+import codelook.jpa.user.*;
+import codelook.jpa.order.*;
+import codelook.jpa.book.*;
+import codelook.jpa.image.*;
 
-import codelook.jpa.book.repository.AuthorInfoRepo;
-import codelook.jpa.book.repository.BookInfoRepo;
-
-import codelook.jpa.book.repository.ListingInfoRepo;
-
-import codelook.jpa.user.repository.UserInfoRepo;
-import codelook.jpa.user.request.UserRegistrationRequest;
-import codelook.jpa.image.service.ImageService;
-import codelook.jpa.user.service.UserService;
-import codelook.jpa.book.repository.AvailableGenresRepo;
-import codelook.jpa.order.repository.OrderInfoRepo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

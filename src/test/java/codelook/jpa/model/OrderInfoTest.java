@@ -1,14 +1,15 @@
 package codelook.jpa.model;
 
 import codelook.jpa.StaticData;
+import codelook.jpa.user.*;
+import codelook.jpa.order.*;
+import codelook.jpa.book.*;
+import codelook.jpa.image.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
-import codelook.jpa.order.model.*;
 
 class OrderInfoTest {
 
