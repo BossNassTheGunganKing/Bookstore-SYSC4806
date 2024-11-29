@@ -5,16 +5,17 @@ import codelook.jpa.user.model.*;
 import codelook.jpa.order.model.*;
 import codelook.jpa.book.model.*;
 
-import codelook.jpa.repository.AuthorInfoRepo;
-import codelook.jpa.repository.BookInfoRepo;
-import codelook.jpa.repository.*;
+import codelook.jpa.book.repository.AuthorInfoRepo;
+import codelook.jpa.book.repository.BookInfoRepo;
 
 import codelook.jpa.book.repository.ListingInfoRepo;
 
-import codelook.jpa.repository.UserInfoRepo;
-import codelook.jpa.request.UserRegistrationRequest;
-import codelook.jpa.service.ImageService;
-import codelook.jpa.service.UserService;
+import codelook.jpa.user.repository.UserInfoRepo;
+import codelook.jpa.user.request.UserRegistrationRequest;
+import codelook.jpa.image.service.ImageService;
+import codelook.jpa.user.service.UserService;
+import codelook.jpa.book.repository.AvailableGenresRepo;
+import codelook.jpa.order.repository.OrderInfoRepo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;

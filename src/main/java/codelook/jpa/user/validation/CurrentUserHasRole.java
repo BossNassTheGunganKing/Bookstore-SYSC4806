@@ -1,15 +1,13 @@
-package codelook.jpa.validation;
+package codelook.jpa.user.validation;
 
 import codelook.jpa.user.model.UserRole;
 import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.lang.annotation.*;
 import java.util.Arrays;

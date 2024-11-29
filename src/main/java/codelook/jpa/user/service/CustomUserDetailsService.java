@@ -1,7 +1,7 @@
 package codelook.jpa.user.service;
 
-import codelook.jpa.model.UserInfo;
-import codelook.jpa.repository.UserInfoRepo;
+import codelook.jpa.user.model.UserInfo;
+import codelook.jpa.user.repository.UserInfoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

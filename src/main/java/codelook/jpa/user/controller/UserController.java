@@ -1,10 +1,10 @@
 package codelook.jpa.user.controller;
 
-import codelook.jpa.model.UserRole;
-import codelook.jpa.request.UserRegistrationRequest;
-import codelook.jpa.service.UserService;
+import codelook.jpa.user.model.UserRole;
+import codelook.jpa.user.request.UserRegistrationRequest;
+import codelook.jpa.user.service.UserService;
 import codelook.jpa.utils.ErrorMapper;
-import codelook.jpa.validation.CurrentUserHasRole;
+import codelook.jpa.user.validation.CurrentUserHasRole;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
