@@ -1,8 +1,7 @@
 package codelook.jpa.order.repository;
 
-import codelook.jpa.model.OrderInfo;
-import codelook.jpa.model.OrderStatus;
-import codelook.jpa.model.UserInfo;
+import codelook.jpa.order.model.*;
+import codelook.jpa.user.model.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

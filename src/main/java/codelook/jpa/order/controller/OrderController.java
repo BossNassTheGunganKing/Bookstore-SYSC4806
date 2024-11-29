@@ -1,10 +1,10 @@
 package codelook.jpa.order.controller;
+import codelook.jpa.order.model.OrderInfo;
+import codelook.jpa.order.model.OrderStatus;
 
-import codelook.jpa.model.OrderInfo;
-import codelook.jpa.model.OrderStatus;
-import codelook.jpa.model.UserInfo;
-import codelook.jpa.repository.OrderInfoRepo;
-import codelook.jpa.service.UserService;
+import codelook.jpa.order.repository.OrderInfoRepo;
+import codelook.jpa.user.model.*;
+import codelook.jpa.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

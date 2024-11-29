@@ -1,9 +1,9 @@
 package codelook.jpa.order.model;
 
 
-import codelook.jpa.model.OrderItem;
-import codelook.jpa.model.OrderStatus;
-import codelook.jpa.model.UserInfo;
+import codelook.jpa.order.model.OrderItem;
+import codelook.jpa.order.model.OrderStatus;
+import codelook.jpa.user.model.UserInfo;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

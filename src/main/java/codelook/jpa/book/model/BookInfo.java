@@ -1,7 +1,7 @@
 package codelook.jpa.book.model;
 
-import codelook.jpa.model.AuthorInfo;
-import codelook.jpa.model.UserInfo;
+import codelook.jpa.book.model.AuthorInfo;
+import codelook.jpa.user.model.UserInfo;
 import jakarta.persistence.*;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package codelook.jpa.model;
 
 import codelook.jpa.StaticData;
+import codelook.jpa.order.model.OrderItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,14 +1,15 @@
 package codelook.jpa.view;
 
-import codelook.jpa.controller.UserController;
-import codelook.jpa.model.*;
-import codelook.jpa.model.*;
+import codelook.jpa.user.controller.UserController;
+import codelook.jpa.user.model.*;
+import codelook.jpa.order.model.*;
+import codelook.jpa.book.model.*;
 
 import codelook.jpa.repository.AuthorInfoRepo;
 import codelook.jpa.repository.BookInfoRepo;
 import codelook.jpa.repository.*;
 
-import codelook.jpa.repository.ListingInfoRepo;
+import codelook.jpa.book.repository.ListingInfoRepo;
 
 import codelook.jpa.repository.UserInfoRepo;
 import codelook.jpa.request.UserRegistrationRequest;

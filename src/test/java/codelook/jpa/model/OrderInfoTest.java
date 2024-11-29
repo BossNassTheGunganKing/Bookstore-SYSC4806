@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import codelook.jpa.order.model.*;
 
 class OrderInfoTest {
 
