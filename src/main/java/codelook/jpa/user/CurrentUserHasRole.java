@@ -15,7 +15,7 @@ import java.util.Arrays;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CurrentUserHasRole.Validator.class)
 @Documented
-@interface CurrentUserHasRole {
+public @interface CurrentUserHasRole {
     String message() default "User does not have the required role";
 
     Class<?>[] groups() default {};

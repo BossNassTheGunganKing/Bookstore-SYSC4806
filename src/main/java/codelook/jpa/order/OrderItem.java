@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity
-class OrderItem {
+public class OrderItem {
 
     @Id
     @GeneratedValue

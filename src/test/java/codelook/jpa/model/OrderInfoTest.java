@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
+
 class OrderInfoTest {
 
     private OrderInfo orderInfo;

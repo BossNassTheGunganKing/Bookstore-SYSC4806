@@ -1,6 +1,6 @@
 package codelook.jpa.user;
 
-enum UserRole {
+public enum UserRole {
     DEFAULT,
     PUBLISHER,
     ADMIN

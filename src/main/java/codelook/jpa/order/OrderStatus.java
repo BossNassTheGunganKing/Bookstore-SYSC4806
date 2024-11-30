@@ -1,6 +1,6 @@
 package codelook.jpa.order;
 
-enum OrderStatus {
+public enum OrderStatus {
     IN_CART,
     PENDING,
     SHIPPED,

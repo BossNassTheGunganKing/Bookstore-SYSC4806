@@ -1,6 +1,4 @@
-@ApplicationModule(
-        allowedDependencies = {"codelook.jpa.book", "codelook.jpa.user",  "codelook.jpa.order",  "codelook.jpa.image",  "codelook.jpa.view", "codelook.jpa"}
-)
+@ApplicationModule(type = ApplicationModule.Type.OPEN)
 
 package codelook.jpa.image;
 

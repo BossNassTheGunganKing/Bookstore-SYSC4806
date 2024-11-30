@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-class OrderController {
+public class OrderController {
 
     @Autowired
     private UserService userService;

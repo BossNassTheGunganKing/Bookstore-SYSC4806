@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-class OrderInfo {
+public class OrderInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

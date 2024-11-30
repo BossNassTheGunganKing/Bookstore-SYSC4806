@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 
 @Controller
-class ShoppingCartController {
+public class ShoppingCartController {
 
     @Autowired
     private ShoppingCartService shoppingCartService;

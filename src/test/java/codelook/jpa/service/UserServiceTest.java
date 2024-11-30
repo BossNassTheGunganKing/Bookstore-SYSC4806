@@ -1,9 +1,6 @@
 package codelook.jpa.service;
 
-import codelook.jpa.user.model.UserInfo;
-import codelook.jpa.user.model.UserRole;
-import codelook.jpa.user.repository.UserInfoRepo;
-import codelook.jpa.user.service.UserService;
+import codelook.jpa.user.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

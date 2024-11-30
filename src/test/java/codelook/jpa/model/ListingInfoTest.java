@@ -1,7 +1,7 @@
 package codelook.jpa.model;
 
 import codelook.jpa.StaticData;
-import codelook.jpa.book.model.ListingInfo;
+import codelook.jpa.book.*;
 import org.junit.Before;
 import org.junit.Test;
 

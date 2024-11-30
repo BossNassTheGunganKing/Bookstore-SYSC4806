@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/images")
-class ImageController {
+public class ImageController {
     private final ImageService imageService;
 
     @Autowired

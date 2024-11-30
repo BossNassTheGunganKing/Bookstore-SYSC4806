@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-class ShoppingCartService {
+public class ShoppingCartService {
 
     @Autowired
     private OrderInfoRepo orderInfoRepo;
