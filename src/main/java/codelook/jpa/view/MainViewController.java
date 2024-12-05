@@ -53,9 +53,18 @@ public class MainViewController {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private RecommendationService recommendationService;
+
     public MainViewController(RestTemplate restTemplate, @Value("${api.base.url}") String baseUrl) {
         this.restTemplate = restTemplate;
         BASE_URL = baseUrl;
+    }
+
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("recommendedBooks", recommendationService.getRecommendedBooks(3));
+        return "index";
     }
 
     @GetMapping("/allBooks")
