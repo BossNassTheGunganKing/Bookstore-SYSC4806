@@ -23,7 +23,7 @@ public class UserInfo {
 
     public UserInfo(String username, String passwordHash, String email, UserRole role) {
         this.username = username;
-        this.email =email;
+        this.email = email;
         this.role = role;
         this.passwordHash = passwordHash;
     }

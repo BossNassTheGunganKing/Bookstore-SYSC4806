@@ -28,7 +28,7 @@ public class UserService {
 
     public UserInfo registerUser(UserRegistrationRequest userRegistrationRequest) {
         String encodedPassword = passwordEncoder.encode(userRegistrationRequest.password());
-        UserInfo newUser = new UserInfo(userRegistrationRequest.username(), encodedPassword, userRegistrationRequest.password(), userRegistrationRequest.role());
+        UserInfo newUser = new UserInfo(userRegistrationRequest.username(), encodedPassword, userRegistrationRequest.email(), userRegistrationRequest.role());
         System.out.println("Saving user: " + newUser);
         return userInfoRepo.save(newUser);
     }
