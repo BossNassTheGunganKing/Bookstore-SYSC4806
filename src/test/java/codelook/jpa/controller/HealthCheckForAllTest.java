@@ -76,18 +76,21 @@ public class HealthCheckForAllTest {
     }
 
     @Test
-    @WithMockUser(value = "admin")
+    @WithUserDetails(value = "admin")
     public void testGetCheckout() throws Exception {
+        // Add an item to the cart
         mockMvc.perform(MockMvcRequestBuilders.post("/cart/add").with(csrf())
-                    .param("listingId", "1")  // Replace with valid listingId
-                    .param("quantity", "2")
-                    .contentType(MediaType.APPLICATION_FORM_URLENCODED))
-            .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("/cart"));
+                        .param("listingId", "1")  // Replace with valid listingId
+                        .param("quantity", "2")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/cart"));
+
+        // Perform the checkout
         mockMvc.perform(MockMvcRequestBuilders.get("/checkout").with(csrf()))
-                .andExpect(status().isOk());
-        mockMvc.perform(MockMvcRequestBuilders.get("/checkout/confirm").with(csrf()))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("order"))  // Verify the 'order' attribute exists
+                .andExpect(view().name("checkout"));  // Verify the correct view is returned
     }
 
     @Test
