@@ -16,21 +16,21 @@
 </head>
 <body>
 <div id="navbar"></div>
-<h1>All Genres Table</h1>
-<table class="table">
-  <thead class="thead-dark">
-  <tr>
-    <th scope="col">Available Genres</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="genre : ${genres}">
-    <td>
-      <a th:href="@{/genre/{id}(id=${genre.genre})}" th:text="${genre.genre}"></a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class="container mt-4">
+  <h1 class="mb-4">Genres</h1>
+
+  <div class="row">
+    <div th:each="genre : ${genres}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card text-center h-100">
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title">
+            <a th:href="@{/genre/{id}(id=${genre.genre})}" th:text="${genre.genre}"></a>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
