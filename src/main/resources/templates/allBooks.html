@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>All Books</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-    <script>
-        $(function(){
-            $('#navbar').load('navbar.html');
-            window.scrollTo(-20,0);
-        });
-    </script>
-</head>
-<body>
-<div id="navbar"></div>
-<h1>All Books Table</h1>
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Cover Image</th>
-        <th scope="col">Book Title</th>
-        <th scope="col">Author(s)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="book : ${books}">
-        <td><img th:src="${book.coverImage != null ? '/images/' + book.coverImage : '/images/notfound.jpg'}"
-                 alt="Book Cover"
-                 style="width: 100px; height: auto;"></td>
-        <td th:text="${book.name}"></td>
-        <td th:text="${book.authorship[0].name}"></td>
-    </tr>
-    </tbody>
-</table>
+    <head>
+        <meta charset="UTF-8">
+        <title>All Books</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
+        <script>
+            $(function(){
+                $('#navbar').load('navbar.html');
+                window.scrollTo(-20,0);
+            });
+        </script>
+    </head>
 
-</body>
+    <body>
+        <div id="navbar"></div>
+        <div class="container mt-4">
+            <h1 class="mb-4">All Books</h1>
+<!--            GRID VIEW of Books with Image covers-->
+            <div class="row">
+                <div th:each="book : ${books}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card book-card">
+                        <img th:src="${book.coverImage != null ? '/images/' + book.coverImage : '/images/notfound.jpg'}"
+                             class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${book.name}">Book Title</h5>
+                            <p class="card-text" th:text="${book.authorship[0].name}">Author(s)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
