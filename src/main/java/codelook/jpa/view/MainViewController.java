@@ -1,19 +1,10 @@
 package codelook.jpa.view;
 
-import codelook.jpa.controller.UserController;
-import codelook.jpa.model.*;
-import codelook.jpa.model.*;
+import codelook.jpa.user.*;
+import codelook.jpa.order.*;
+import codelook.jpa.book.*;
+import codelook.jpa.image.*;
 
-import codelook.jpa.repository.AuthorInfoRepo;
-import codelook.jpa.repository.BookInfoRepo;
-import codelook.jpa.repository.*;
-
-import codelook.jpa.repository.ListingInfoRepo;
-
-import codelook.jpa.repository.UserInfoRepo;
-import codelook.jpa.request.UserRegistrationRequest;
-import codelook.jpa.service.ImageService;
-import codelook.jpa.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -327,5 +318,4 @@ public class MainViewController {
         model.addAttribute("orders", orders);
         return "allOrders";
     }
-
 }

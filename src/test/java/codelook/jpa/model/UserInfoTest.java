@@ -1,7 +1,7 @@
 package codelook.jpa.model;
 
 import codelook.jpa.StaticData;
-import codelook.jpa.service.UserService;
+import codelook.jpa.user.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

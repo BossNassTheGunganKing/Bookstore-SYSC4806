@@ -1,10 +1,10 @@
 package codelook.jpa;
 
-import codelook.jpa.model.*;
+import codelook.jpa.user.*;
+import codelook.jpa.order.*;
+import codelook.jpa.book.*;
+import codelook.jpa.image.*;
 
-import codelook.jpa.repository.*;
-import codelook.jpa.request.UserRegistrationRequest;
-import codelook.jpa.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
