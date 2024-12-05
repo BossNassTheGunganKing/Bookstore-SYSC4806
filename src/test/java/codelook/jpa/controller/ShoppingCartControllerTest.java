@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.http.MediaType;
@@ -24,6 +25,7 @@ public class ShoppingCartControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
 
     @MockBean
     private ShoppingCartService shoppingCartService;
@@ -51,6 +53,7 @@ public class ShoppingCartControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/cart"));
 
+
         verify(shoppingCartService).addItemToCart(1L, 2);
     }
 
@@ -66,3 +69,4 @@ public class ShoppingCartControllerTest {
                 .andExpect(view().name("checkout"));
     }
 }
+
