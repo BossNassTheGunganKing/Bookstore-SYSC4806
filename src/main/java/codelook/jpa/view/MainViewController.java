@@ -12,7 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -232,6 +231,28 @@ public class MainViewController {
         }
         model.addAttribute("books", booksToShow);
         return "genre";
+    }
+
+    // Available Genres Pages
+    @GetMapping("/allAuthors")
+    public String allAuthorsPage(Model model) {
+        model.addAttribute("authors", authorInfoRepo.findAll());
+        return "allAuthors";
+    }
+
+    @GetMapping("/author/{name}")
+    public String authorsBooksPage(@PathVariable String name, Model model) {
+        model.addAttribute("author", name);
+        List<BookInfo> booksToShow = new java.util.ArrayList<>(List.of());
+        authorInfoRepo.findByName(name);
+
+        for (BookInfo b : bookInfoRepo.findAll()) {
+            if (b.getAuthorship().contains(authorInfoRepo.findByName(name).get(0))) {
+                booksToShow.add(b);
+            }
+        }
+        model.addAttribute("books", booksToShow);
+        return "authorbooks";
     }
 
     @GetMapping("/login")
