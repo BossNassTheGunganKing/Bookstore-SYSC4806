@@ -29,8 +29,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="/allListings">Listings</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/allGenres">Genres</a>
+            <!-- Account section -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    View By
+                </a>
+                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                    <a class="dropdown-item" href="/allGenres">Genres</a>
+                    <a class="dropdown-item" href="/allAuthors">Authors</a>
+                </div>
             </li>
 
             <li class="nav-item dropdown" sec:authorize="hasAnyRole('PUBLISHER', 'ADMIN')">
