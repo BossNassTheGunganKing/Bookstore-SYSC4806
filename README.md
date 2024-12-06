@@ -51,7 +51,7 @@ Navigation and Basic UI:
 - Improved navigation and layout, cleaning up the UI that guides users through the available features.
 
 ### Class Diagram
-![4806bookstore drawio](https://github.com/user-attachments/assets/b44e868c-9616-4fbe-a836-295857f2cdee)
+![bookstore_class_diagram](https://github.com/user-attachments/assets/55cc1858-c4e2-4acd-b283-74411aabb844)
 
 ### Milestone 3 Goals : Final Demo
 
