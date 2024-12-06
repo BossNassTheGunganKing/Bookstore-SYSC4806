@@ -142,6 +142,20 @@ public class HealthCheckForAllTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    @WithMockUser
+    public void testGetViewAuthors() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/allAuthors").with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetSpecificAuthor() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/author/George").with(csrf()))
+                .andExpect(status().isOk());
+    }
+
 
     @Test
     @WithMockUser

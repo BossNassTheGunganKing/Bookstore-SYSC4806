@@ -243,6 +243,28 @@ public class MainViewController {
         return "genre";
     }
 
+    // view books by author
+    @GetMapping("/allAuthors")
+    public String allAuthorsPage(Model model) {
+        model.addAttribute("authors", authorInfoRepo.findAll());
+        return "allAuthors";
+    }
+
+    @GetMapping("/author/{name}")
+    public String authorsBooksPage(@PathVariable String name, Model model) {
+        model.addAttribute("author", name);
+        List<BookInfo> booksToShow = new java.util.ArrayList<>(List.of());
+        authorInfoRepo.findByName(name);
+
+        for (BookInfo b : bookInfoRepo.findAll()) {
+            if (b.getAuthorship().contains(authorInfoRepo.findByName(name).get(0))) {
+                booksToShow.add(b);
+            }
+        }
+        model.addAttribute("books", booksToShow);
+        return "authorbooks";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";

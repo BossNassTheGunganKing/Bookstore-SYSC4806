@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books By Author</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            $('#navbar').load('navbar.html');
+            window.scrollTo(-20,0);
+        });
+    </script>
+</head>
+<body>
+<div id="navbar"></div>
+
+<div class="container mt-4">
+    <h1 class="mb-4">All Authors</h1>
+
+    <div class="row">
+        <div th:each="author : ${authors}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <h5 class="card-title">
+                        <a th:href="@{/author/{name}(name=${author.getName()})}" th:text="${author.name}"></a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
