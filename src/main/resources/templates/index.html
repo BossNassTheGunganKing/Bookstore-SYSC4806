@@ -44,9 +44,21 @@
     <h2 class="my-4">View Listings</h2>
     <a href="/allListings" class="btn btn-primary">View All Listings</a>
 
-    <h2 class="my-4">View Users</h2>
-    <a href="/users/view" class="btn btn-primary" sec:authorize="hasRole('ROLE_DEFAULT')">View All Users</a>
-
+    <div class="container my-4" th:if="${!recommendedBooks.isEmpty()}">
+        <h2 class="my-4">Recommended Books</h2>
+        <div class="row">
+            <div class="col-md-3" th:each="book : ${recommendedBooks}">
+                <div class="card book-card">
+                    <img th:src="${book.coverImage != null ? '/images/' + book.coverImage : '/images/notfound.jpg'}"
+                         class="card-img-top" alt="Book Cover">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${book.name}">Book Title</h5>
+                        <p class="card-text" th:text="${book.authorship[0].name}">Author(s)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

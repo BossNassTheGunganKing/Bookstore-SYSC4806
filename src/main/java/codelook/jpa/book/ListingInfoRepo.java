@@ -12,4 +12,5 @@ public interface ListingInfoRepo extends JpaRepository<ListingInfo, Long> {
 
     ListingInfo findListingInfoById(Long id);
 
+    List<ListingInfo> findAllByBookInAndRemainingCopiesNot(List<BookInfo> notPurchasedBooks, int i);
 }

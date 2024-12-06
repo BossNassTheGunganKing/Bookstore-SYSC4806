@@ -34,6 +34,7 @@ public class ListingInfo {
         this.datePublished = datePublished;
         this.format = format;
         this.originalPrice = originalPrice;
+        this.discountedPrice = originalPrice;
         this.book = book;
         this.remainingCopies = remainingCopies;
     }
