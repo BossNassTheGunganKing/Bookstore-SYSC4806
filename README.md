@@ -11,7 +11,7 @@ The development process is organized in GitHub through Issues, Pull Requests, an
 - Issues: Used to track tasks, bug fixes, and feature requests.
 - Kanban Board: Shows the current status of tasks (Backlog, Ready, In Progress, In Review, Done).
 - Code Reviews: All pull requests undergo code review to ensure quality and consistency.
-- Testing: JUnit tests are written for key functionalities. There are JUnit tests for Author Info (AuthorInfoTest), Book Info (BookInfoTest), Bookstore Controller (BookstoreControllerTest), and Listing Info (ListingInfoTest).
+- Testing: JUnit tests are written for key functionalities. There are JUnit tests for Author Info (AuthorInfoTest), Book Info (BookInfoTest), Bookstore Controller (BookstoreControllerTest), Listing Info (ListingInfoTest), Order Info (OrderInfoTest), Order Item (OrderItemTest), User Info (UserInfoTest), User Service (UserServiceTest), Shopping Cart Controller (ShoppingCartControllerTest), User Controller (UserControllerTest), Modulatity Test (ModularityTest), and health tests for all pages. 
 
 ### Contributions
 All team members participate in every aspect of the project, including:
@@ -27,9 +27,7 @@ This prototype provides a functional early prototype demonstrating a key use cas
 
 ## Milestone 2 - Alpha Release
 
-### Current State
-
-The current prototype builds upon the foundational functionality from Milestone 1. The application provides a functional core that demonstrates its main purpose, allowing users to interact with book and author data. While some features are not yet complete, users can get a feel for the intended functionality. 
+The second milestone added several new features and improved usability. Key highlights include:
 
 New Additions:
 Author and Book Management:
@@ -57,39 +55,42 @@ Navigation and Basic UI:
 
 ### Milestone 3 Goals : Final Demo
 
-For the final milestone, we aim to focus on refining the application and ensuring its readiness for a seamless user experience. Below are the key updates planned:
+### Current State
 
-## Finalizing the Scope of the Product
-- Review and finalize the set of features to ensure the application is usable and useful for its intended purpose.
-- Remove any placeholders, dangling links, or buttons pointing to non-implemented features in the UI.
-- Polish the interface for a consistent and intuitive design.
+For Milestone 3, the focus shifted to refining the application and ensuring it delivers a seamless user experience.
+
+## Spring Modulith Implementation:
+- Modularized the codebase using Spring Modulith to enforce module boundaries and dependencies.
+- Enhanced code organization and testability.
+- 
+## Advanced Filtering and Display:
+- Added filters for browsing books, improving the user experience.
+- Updated the book display to a grid format for a modern and intuitive design.
+- Provide advanced search and filtering options, including filtering by genre.
+- Added book recommendations for users.
+- 
+## Health Testing:
+- Added health tests for all pages to ensure consistent functionality and detect potential issues proactively.
+- 
+## Role-Based Permissions:
+- Implemented granular access control with clear role-based restrictions:
+- Default Users: Can browse, add items to the cart, and place orders.
+- Publishers: Can manage books and authors.
+- Admins: Can manage users and view all orders.
 
 ## Usability and User Experience Enhancements:
 
 - Order Management:
 - Provide users with a more detailed view of their order history.
-- Add an order cancellation feature for users to cancel pending orders (if applicable).
 - Allow admins to view and manage all orders in the system, including filtering by order status.
-
-Shopping Cart:
-- Improve real-time feedback for inventory availability during cart operations (e.g., notify users if stock becomes unavailable).
-- Ensure seamless transition from cart to checkout with accurate pricing and stock checks.
-
-Error Handling:
-- Add user-friendly error messages and validation feedback across all forms (e.g., login, registration, adding books/authors, updating account details).
-- Ensure robust error pages (e.g., 404, 500) with appropriate redirection links.
 
 ## Feature Enhancements
 
 Role-Based Permissions:
 - Restrict access to sensitive pages based on user roles, with clear redirects to a “No Permissions” page if access is denied.
-- Remove links that users should not have axccess to. 
 
 Admin Features:
-- Admins can manage users, including the ability to deactivate accounts or reset user information.
-
-Search and Filtering:
-- Enhance the catalog browsing experience with advanced search and filtering options, including filtering by genre, author, and availability.
+- Admins can manage users, view orders, view account information.
 
 
 
